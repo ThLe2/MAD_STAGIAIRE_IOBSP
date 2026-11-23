@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IOBSP · Journée 3 · Livret de révision — TMK Performances</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --prune:#8C1E70; --prune-f:#5E1349; --prune-c:#F4E6EE; --rose:#C77BAA;
+  --vert:#283C28; --gris:#3C3C3C; --gris-m:#8A7A85; --trame:#E8DCE5; --fond:#FAF6F8; --blanc:#FFFFFF;
+  --ok:#2E7D4F; --alerte:#B3261E;
+  --side:280px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Helvetica,Arial,sans-serif;color:var(--gris);background:var(--fond);font-size:15.5px;line-height:1.55}
+button,input,select,textarea{font:inherit;color:inherit}
+
+/* ---------- Barre latérale ---------- */
+#side{position:fixed;top:0;left:0;bottom:0;width:var(--side);background:var(--prune-f);color:#fff;display:flex;flex-direction:column;z-index:20}
+#side .brand{padding:22px 22px 14px;border-bottom:1px solid rgba(255,255,255,.15)}
+#side .brand .wm{font-weight:700;letter-spacing:.4px;font-size:15px}
+#side .brand .wm b{color:#fff}
+#side .brand .wm span{color:var(--rose);font-weight:400}
+#side .brand .t{margin-top:10px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#E6CFDD}
+#side .brand .h{font-size:19px;font-weight:700;margin-top:2px}
+#side nav{flex:1;overflow-y:auto;padding:10px 0}
+#side nav a{display:flex;align-items:center;gap:10px;padding:10px 22px;color:#F3E4ED;text-decoration:none;font-size:14px;border-left:4px solid transparent}
+#side nav a:hover{background:rgba(255,255,255,.07)}
+#side nav a.on{background:rgba(255,255,255,.12);border-left-color:var(--rose);color:#fff;font-weight:700}
+#side nav a .n{flex:0 0 26px;height:26px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+#side nav a .l{flex:1}
+#side nav a .p{font-size:11px;color:#E6CFDD;font-variant-numeric:tabular-nums}
+#side nav a .p.full{color:#fff}
+#side .foot{padding:14px 22px 18px;border-top:1px solid rgba(255,255,255,.15);font-size:12px;color:#E6CFDD}
+#side .foot .bar{height:8px;background:rgba(255,255,255,.18);border-radius:4px;overflow:hidden;margin:6px 0 4px}
+#side .foot .bar i{display:block;height:100%;width:0;background:var(--rose);transition:width .4s}
+
+/* ---------- Barre haute ---------- */
+#top{position:sticky;top:0;z-index:10;margin-left:var(--side);background:var(--blanc);border-bottom:1px solid var(--trame);display:flex;align-items:center;gap:10px;padding:10px 28px;flex-wrap:wrap}
+#top .status{flex:1;font-size:13px;color:var(--gris-m);min-width:180px}
+#top .status b{color:var(--ok);font-weight:600}
+.btn{border:1px solid var(--prune);background:var(--blanc);color:var(--prune);padding:8px 14px;border-radius:6px;cursor:pointer;font-size:13.5px;font-weight:600;white-space:nowrap}
+.btn:hover{background:var(--prune-c)}
+.btn.plein{background:var(--prune);color:#fff}
+.btn.plein:hover{background:var(--prune-f)}
+.btn.discret{border-color:var(--trame);color:var(--gris-m);font-weight:400}
+#menuBtn{display:none}
+
+/* ---------- Contenu ---------- */
+main{margin-left:var(--side);padding:28px 28px 60px}
+.page{display:none;max-width:900px;margin:0 auto}
+.page.on{display:block}
+.bandeau{background:var(--prune-f);color:#fff;border-radius:10px;padding:26px 30px;margin-bottom:22px}
+.bandeau .k{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#E6CFDD}
+.bandeau h1{margin:6px 0 4px;font-size:27px;line-height:1.2}
+.bandeau .s{color:#F1DDE9;font-size:14px}
+h2{color:var(--prune-f);font-size:20px;margin:34px 0 12px;display:flex;align-items:center;gap:10px}
+h2 .pastille{background:var(--prune);color:#fff;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:10px;font-weight:700}
+h3{color:var(--prune);font-size:16.5px;margin:22px 0 8px}
+p{margin:8px 0}
+.carte{background:var(--blanc);border:1px solid var(--trame);border-radius:10px;padding:18px 22px;margin:12px 0}
+.encadre{background:var(--prune-c);border-left:5px solid var(--prune);border-radius:6px;padding:12px 16px;margin:12px 0;break-inside:avoid}
+.encadre .tt{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--prune-f);margin-bottom:4px}
+.encadre.art{background:#fff;border:1px solid var(--rose);border-left:5px solid var(--prune-f)}
+.encadre.art q{font-style:italic;quotes:"« " " »"}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px;break-inside:avoid}
+th{background:var(--prune-f);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:8px 10px;border-bottom:1px solid var(--trame);vertical-align:top}
+tr:nth-child(even) td{background:var(--fond)}
+td:first-child{font-weight:600;color:var(--gris)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.trois{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.deux>div,.trois>div{background:var(--blanc);border:1px solid var(--trame);border-top:4px solid var(--prune);border-radius:6px;padding:12px 14px;font-size:14.5px;break-inside:avoid}
+.deux>div b.tt,.trois>div b.tt{display:block;color:var(--prune-f);font-size:12.5px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+ol.num{padding-left:22px}
+ol.num li{margin:4px 0}
+ul{padding-left:20px}
+ul li{margin:3px 0}
+
+/* ---------- Mode d'emploi ---------- */
+.etapes{counter-reset:e;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.etapes>div{background:#fff;border:1px solid var(--trame);border-radius:8px;padding:14px 16px 14px 56px;position:relative;font-size:14.5px}
+.etapes>div::before{counter-increment:e;content:counter(e);position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--prune);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.etapes b{color:var(--prune-f)}
+.alerte-poste{background:#FFF7E6;border:1px solid #E8C77A;border-radius:8px;padding:12px 16px;font-size:14px;margin:16px 0}
+.champ{display:flex;flex-direction:column;gap:4px;margin:10px 0;max-width:420px}
+.champ label{font-size:13px;color:var(--gris-m)}
+.champ input{border:1px solid var(--trame);border-radius:6px;padding:9px 11px;background:#fff}
+
+/* ---------- Saisie ---------- */
+.zone{margin-top:10px}
+.zone label.lab{display:block;font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--prune);font-weight:700;margin-bottom:4px}
+textarea{width:100%;min-height:96px;border:1px solid var(--trame);border-radius:6px;padding:10px 12px;background:#fff;resize:vertical;line-height:1.5}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--rose);outline-offset:1px;border-color:var(--rose)}
+textarea.rempli{border-color:#C9B3C2;background:#FFFDFE}
+.notes textarea{min-height:140px;background:#FFFEF7;border-color:#EADFB8}
+.print-copy{display:none}
+
+/* ---------- Mise en situation ---------- */
+.mes-tete{background:var(--prune);color:#fff;border-radius:10px 10px 0 0;padding:16px 22px}
+.mes-tete .k{font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:#F1DDE9}
+.mes-tete .h{font-size:19px;font-weight:700;margin-top:2px}
+.mes-meta{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border:1px solid var(--trame);border-top:0;font-size:13.5px}
+.mes-meta>div{padding:10px 14px;border-right:1px solid var(--trame)}
+.mes-meta>div:last-child{border-right:0}
+.mes-meta b{display:block;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--prune);margin-bottom:2px}
+.consigne{background:#fff;border:1px solid var(--trame);border-top:0;border-radius:0 0 10px 10px;padding:14px 22px;font-size:14.5px;break-inside:avoid}
+.consigne .tt{font-weight:700;color:var(--prune-f);font-size:12px;letter-spacing:1.3px;text-transform:uppercase}
+.cas{background:#fff;border:1px solid var(--trame);border-radius:10px;padding:16px 20px;margin:14px 0}
+.cas .ct{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--prune-f);font-size:15.5px}
+.cas .ct .lettre{flex:0 0 28px;height:28px;border-radius:6px;background:var(--prune-f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px}
+.cas .ct .ok{margin-left:auto;font-size:12px;color:var(--ok);font-weight:600;visibility:hidden}
+.cas.fait .ct .ok{visibility:visible}
+.cas .enonce{font-style:italic;margin:8px 0 0;font-size:14.5px;break-inside:avoid}
+.piece{background:var(--fond);border:1px solid var(--trame);border-radius:6px;padding:10px 14px;margin:8px 0;font-size:14px;break-inside:avoid}
+.piece b{color:var(--prune-f)}
+.grille select{width:100%;border:1px solid var(--trame);border-radius:6px;padding:6px 8px;background:#fff}
+.grille textarea{min-height:58px}
+.grille td:first-child{width:30%}
+.grille td:nth-child(2){width:24%}
+
+/* ---------- Photos ---------- */
+.photos{margin-top:16px;background:#fff;border:1px dashed var(--rose);border-radius:10px;padding:14px 18px}
+.photos .tt{font-weight:700;color:var(--prune-f);font-size:14px}
+.photos .aide{font-size:13px;color:var(--gris-m);margin:2px 0 8px}
+.photos .vignettes{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.photos figure{margin:0;position:relative;width:150px}
+.photos figure img{width:150px;height:110px;object-fit:cover;border-radius:6px;border:1px solid var(--trame);display:block}
+.photos figure button{position:absolute;top:4px;right:4px;border:0;background:rgba(0,0,0,.6);color:#fff;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:13px;line-height:1}
+
+/* ---------- Examen ---------- */
+.exam{background:#fff;border:1px solid var(--trame);border-radius:10px;padding:6px 18px;break-inside:avoid}
+.exam label{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--trame);cursor:pointer;font-size:14.5px}
+.exam label:last-child{border-bottom:0}
+.exam input{margin-top:4px;accent-color:var(--prune);width:17px;height:17px;flex:0 0 17px}
+.exam .q{flex:1}
+.exam .etat{font-size:12px;color:var(--gris-m);white-space:nowrap}
+.exam input:checked~.etat{color:var(--ok);font-weight:600}
+
+/* ---------- Fiche mémo verrouillée ---------- */
+.verrou{background:#fff;border:1px solid var(--trame);border-radius:10px;padding:22px;text-align:center}
+.verrou .ic{font-size:26px}
+.verrou p{max-width:560px;margin:8px auto;font-size:14.5px}
+.verrou form{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.verrou input{border:1px solid var(--trame);border-radius:6px;padding:8px 12px;width:200px;text-transform:uppercase;letter-spacing:1px}
+.verrou .err{color:var(--alerte);font-size:13px;min-height:18px;margin-top:6px}
+.memo{display:none}
+body.deverrouille .memo{display:block}
+body.deverrouille .verrou{display:none}
+details.bloc{background:#fff;border:1px solid var(--trame);border-radius:10px;margin:10px 0;overflow:hidden}
+details.bloc>summary{cursor:pointer;padding:13px 18px;font-weight:700;color:var(--prune-f);list-style:none;display:flex;align-items:center;gap:10px}
+details.bloc>summary::-webkit-details-marker{display:none}
+details.bloc>summary::before{content:"+";flex:0 0 22px;height:22px;border-radius:50%;background:var(--prune-c);color:var(--prune);display:flex;align-items:center;justify-content:center;font-weight:700}
+details.bloc[open]>summary::before{content:"–"}
+details.bloc>.in{padding:0 18px 14px}
+
+/* ---------- Outils ---------- */
+.outil{background:#fff;border:2px solid var(--prune);border-radius:10px;padding:18px 22px;margin:16px 0}
+.outil .tt{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--prune);font-weight:700}
+.outil h4{margin:2px 0 10px;color:var(--prune-f);font-size:17px}
+.outil .form{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
+.outil .form label{font-size:13px;color:var(--gris-m);display:flex;flex-direction:column;gap:3px}
+.outil .form label.cb{flex-direction:row;align-items:center;gap:8px;color:var(--gris);font-size:14px}
+.outil .form select,.outil .form input[type=number]{border:1px solid var(--trame);border-radius:6px;padding:8px 10px;background:#fff}
+.outil .res{margin-top:14px;border-radius:8px;padding:12px 16px;font-size:14.5px;background:var(--fond);border-left:5px solid var(--gris-m)}
+.outil .res.oui{border-left-color:var(--ok);background:#EEF7F1}
+.outil .res.non{border-left-color:var(--alerte);background:#FCEFEE}
+.outil .choix{display:flex;flex-wrap:wrap;gap:8px}
+.outil .choix button{border:1px solid var(--prune);background:#fff;color:var(--prune);border-radius:20px;padding:7px 14px;cursor:pointer;font-size:14px}
+.outil .choix button.on{background:var(--prune);color:#fff}
+
+/* ---------- Bilan ---------- */
+.bilan-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.bilan-grille>div{background:#fff;border:1px solid var(--trame);border-radius:8px;padding:14px}
+.bilan-grille .n{font-size:12px;color:var(--gris-m);text-transform:uppercase;letter-spacing:1px}
+.bilan-grille .t{font-weight:700;color:var(--prune-f);margin:2px 0 8px;font-size:14.5px}
+.mini{height:7px;background:var(--trame);border-radius:4px;overflow:hidden}
+.mini i{display:block;height:100%;background:var(--prune)}
+.bilan-grille .c{font-size:12.5px;color:var(--gris-m);margin-top:6px}
+
+.suiv{display:flex;justify-content:space-between;margin-top:34px;gap:10px}
+footer.pied{text-align:center;font-size:12px;color:var(--gris-m);margin:40px auto 0;max-width:900px;border-top:1px solid var(--trame);padding-top:14px}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gris);color:#fff;padding:10px 18px;border-radius:8px;font-size:14px;opacity:0;transition:.3s;z-index:50;pointer-events:none}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+#entete-impression{display:none}
+.bloc-print{display:none}
+
+/* ---------- Petits écrans ---------- */
+@media screen and (max-width:900px){
+  #side{transform:translateX(-100%);transition:transform .25s}
+  body.menu #side{transform:none;box-shadow:0 0 30px rgba(0,0,0,.3)}
+  #top,main{margin-left:0}
+  #menuBtn{display:inline-block}
+  .deux,.trois,.etapes,.bilan-grille,.outil .form,.mes-meta{grid-template-columns:1fr}
+  .mes-meta>div{border-right:0;border-bottom:1px solid var(--trame)}
+  main{padding:18px 14px 50px}
+  #top{position:static;padding:8px 12px;gap:6px}
+  #top .status{flex-basis:100%;order:5;font-size:12px}
+  #top .btn{padding:6px 10px;font-size:12.5px}
+}
+
+/* ---------- Impression / PDF ---------- */
+@page{size:A4;margin:16mm 14mm 18mm;
+  @bottom-center{content:"TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A";font-family:Helvetica,Arial,sans-serif;font-size:8pt;color:#8A7A85}
+  @bottom-right{content:counter(page) " / " counter(pages);font-family:Helvetica,Arial,sans-serif;font-size:8pt;color:#8A7A85}
+}
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  #side,#top,#toast,.suiv,.btn,.photos input,.photos figure button,.verrou,.outil,.no-print,footer.pied{display:none!important}
+  main{margin:0;padding:0}
+  .page{display:block!important;max-width:none;page-break-before:always}
+  .page#p-accueil{display:none!important}
+  #entete-impression{display:block;page-break-after:avoid}
+  textarea{display:none}
+  .print-copy{display:block;white-space:pre-wrap;border:1px solid #DCCAD6;border-radius:4px;padding:6px 9px;min-height:18mm;font-size:10pt;background:#fff}
+  .print-copy.vide{color:#B9A9B4;font-style:italic}
+  .grille select{border:0;-webkit-appearance:none;appearance:none;padding:0}
+  .cas,.carte,.encadre,.exam,.consigne,.deux>div,.trois>div,table,.piece,figure{break-inside:avoid}
+  .mes-tete,.consigne{break-after:avoid}
+  details.bloc{display:none!important}
+  .bloc-print{display:block!important;margin:8px 0 14px}
+  .bloc-print>h3{margin:14px 0 6px;break-after:avoid}
+  h2,h3{break-after:avoid}
+  body:not(.deverrouille) .memo{display:none!important}
+  .photos{border-style:solid;break-inside:avoid}
+  .photos.vide,.photos .aide{display:none!important}
+  .photos figure img{width:60mm;height:auto;max-height:70mm;object-fit:contain}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ===== Livret de révision : compléments ===== */
+.onglets{position:sticky;top:57px;z-index:8;display:flex;gap:4px;background:var(--fond);padding:8px 0 10px;margin-bottom:6px;border-bottom:1px solid var(--trame);flex-wrap:wrap}
+.onglets button{border:1px solid var(--trame);background:#fff;color:var(--prune-f);border-radius:20px;padding:7px 16px;cursor:pointer;font-size:14px;font-weight:600}
+.onglets button.on{background:var(--prune);border-color:var(--prune);color:#fff}
+.onglets button .cpt{font-size:11px;font-weight:400;margin-left:4px;opacity:.85}
+.tab{display:none}
+.tab.on{display:block}
+h2.ptitre{margin-top:16px}
+.aide-annot{font-size:13.5px;color:var(--gris-m);background:#fff;border:1px dashed var(--rose);border-radius:8px;padding:8px 12px}
+.carte-cours{background:#fff;border:1px solid var(--trame);border-radius:10px;padding:18px 22px;margin:14px 0;scroll-margin-top:120px}
+.carte-cours .kick{font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);font-weight:700}
+.carte-cours h3{margin:4px 0 10px;color:var(--prune-f);font-size:18px}
+.carte-cours h4{color:var(--prune);margin:14px 0 6px;font-size:14px;text-transform:uppercase;letter-spacing:1px}
+.annot q{quotes:"« " " »";font-style:italic}
+
+/* Surlignage */
+mark.hl{padding:0 1px;border-radius:2px;cursor:pointer;color:inherit}
+mark.hl.c1{background:#FFF0A6}
+mark.hl.c2{background:#C9F0D3}
+mark.hl.c3{background:#F6CFE3}
+mark.hl.c4{background:#CFE3FB}
+mark.hl[data-note]{border-bottom:2px dotted var(--prune)}
+mark.hl[data-note]::after{content:"✎";font-size:10px;vertical-align:super;color:var(--prune);margin-left:1px}
+mark.hl.flash{outline:3px solid var(--prune);outline-offset:2px}
+#hlBar{position:absolute;z-index:60;display:none;background:var(--gris);border-radius:8px;padding:5px;gap:4px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#hlBar.on{display:flex}
+#hlBar button{border:0;border-radius:5px;cursor:pointer;height:30px;min-width:30px;font-size:13px}
+#hlBar .sw{width:30px}
+#hlBar .sw.c1{background:#FFE45C}#hlBar .sw.c2{background:#7ED99A}#hlBar .sw.c3{background:#EE94C2}#hlBar .sw.c4{background:#8DBDF4}
+#hlBar .nt{background:#fff;color:var(--prune-f);font-weight:700;padding:0 10px}
+#hlPop{position:absolute;z-index:61;display:none;width:300px;background:#fff;border:1px solid var(--rose);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:12px}
+#hlPop.on{display:block}
+#hlPop .ex{font-size:12.5px;color:var(--gris-m);font-style:italic;max-height:60px;overflow:hidden;margin-bottom:6px}
+#hlPop textarea{min-height:80px;font-size:14px}
+#hlPop .row{display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap}
+#hlPop .sw{width:24px;height:24px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--trame);cursor:pointer}
+#hlPop .sw.c1{background:#FFE45C}#hlPop .sw.c2{background:#7ED99A}#hlPop .sw.c3{background:#EE94C2}#hlPop .sw.c4{background:#8DBDF4}
+#hlPop .sw.on{box-shadow:0 0 0 2px var(--prune)}
+#hlPop .sup{margin-left:auto;border:0;background:none;color:var(--alerte);cursor:pointer;font-size:13px}
+#hlPop .fermer{border:0;background:var(--prune);color:#fff;border-radius:6px;padding:5px 12px;cursor:pointer;font-size:13px}
+
+/* Exercices */
+.exo-barre{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:6px 0 12px;font-size:14px;color:var(--gris-m)}
+.cas .ct .badge{margin-left:auto;font-size:12px;font-weight:600;white-space:nowrap}
+.cas .ct .badge.ok{color:var(--ok)}.cas .ct .badge.partiel{color:#9A6B00}.cas .ct .badge.ko{color:var(--alerte)}.cas .ct .badge.val{color:var(--prune)}
+.cas .actions{margin-top:10px}
+.cas.valide .actions{display:none}
+.cas textarea:disabled,.cas select:disabled{background:#F7F2F5;color:var(--gris);opacity:1;cursor:not-allowed}
+.corrige{display:none;margin-top:14px;border-top:2px solid var(--prune-c);padding-top:12px}
+.cas.valide .corrige{display:block}
+.corrige .ra{font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--prune);font-weight:700}
+.corrige .rh{display:inline-block;background:var(--prune-f);color:#fff;border-radius:6px;padding:7px 12px;font-weight:700;margin:6px 0 8px;font-size:14.5px}
+.retenir{background:var(--prune-c);border-left:5px solid var(--prune);border-radius:6px;padding:10px 14px;margin-top:12px;break-inside:avoid}
+.retenir .tt{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--prune-f);margin-bottom:2px}
+.auto{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;font-size:13.5px;color:var(--gris-m)}
+.auto button{border:1px solid var(--trame);background:#fff;border-radius:16px;padding:5px 12px;cursor:pointer;font-size:13px}
+.auto button.on[data-v=ok]{background:#EEF7F1;border-color:var(--ok);color:var(--ok);font-weight:700}
+.auto button.on[data-v=partiel]{background:#FFF6DF;border-color:#C9A13B;color:#7A5600;font-weight:700}
+.auto button.on[data-v=ko]{background:#FCEFEE;border-color:var(--alerte);color:var(--alerte);font-weight:700}
+.grille-corr td:nth-child(2){white-space:nowrap}
+.verdict{display:block;font-size:12px;margin-top:3px}
+.verdict.bon{color:var(--ok)}.verdict.faux{color:var(--alerte)}
+.memo-outils{text-align:right;margin-bottom:-4px}
+
+/* Annotations et bilan */
+.liste-annot .item{background:#fff;border:1px solid var(--trame);border-left:6px solid #FFE45C;border-radius:8px;padding:10px 14px;margin:8px 0}
+.liste-annot .item.c2{border-left-color:#7ED99A}.liste-annot .item.c3{border-left-color:#EE94C2}.liste-annot .item.c4{border-left-color:#8DBDF4}
+.liste-annot .ex{font-style:italic}
+.liste-annot .nt{margin-top:4px;color:var(--prune-f)}
+.liste-annot .lien{font-size:12.5px;color:var(--prune);cursor:pointer;text-decoration:underline;margin-top:4px;display:inline-block}
+.liste-annot h3{margin-top:22px}
+.vide-msg{color:var(--gris-m);font-style:italic}
+.synthese ol{padding-left:22px}
+.synthese li{margin:6px 0}
+@media screen and (max-width:900px){.onglets{top:0}}
+@media print{
+  .onglets,.aide-annot,.exo-barre,.memo-outils,.auto button:not(.on){display:none!important}
+  .tab{display:block!important}
+  .cas:not(.valide) .corrige{display:none!important}
+  .cas.valide .corrige{display:block!important}
+  mark.hl[data-note]::after{content:" [Note : " attr(data-note) "]";font-size:9pt;vertical-align:baseline;font-style:italic}
+  .carte-cours{break-inside:auto;border:0;padding:4px 0;margin:10px 0}
+  .carte-cours .ch{break-inside:avoid;break-after:avoid;page-break-after:avoid;border-top:2px solid #E8DCE5;padding-top:8px}
+  .corrige .ra,.corrige .rh{break-after:avoid}
+  .page#p-annotations{display:none!important}
+}
+
+.corrige .score{font-weight:700;color:var(--prune-f);margin:2px 0 8px}
+.grille.classement td:first-child{width:62%}
+</style>
+</head>
+<body>
+
+<aside id="side">
+  <div class="brand">
+    <div class="wm"><b>TMK</b> <span>Performances</span></div>
+    <div class="t">IOBSP · Niveau 2 · Bloc 2</div>
+    <div class="h">Journée 3 — Le crédit à la consommation</div>
+  </div>
+  <nav id="nav">
+    <a href="#accueil" data-p="accueil"><span class="n">★</span><span class="l">Accueil</span></a>
+<a href="#s1" data-p="s1"><span class="n">1</span><span class="l">Qualifier et informer</span><span class="p"></span></a>
+<a href="#s2" data-p="s2"><span class="n">2</span><span class="l">Les formes de crédit</span><span class="p"></span></a>
+<a href="#s3" data-p="s3"><span class="n">3</span><span class="l">L'encadrement et les fichiers</span><span class="p"></span></a>
+<a href="#s4" data-p="s4"><span class="n">4</span><span class="l">Les caractéristiques financières</span><span class="p"></span></a>
+<a href="#s5" data-p="s5"><span class="n">5</span><span class="l">Les garanties et les tiers</span><span class="p"></span></a>
+<a href="#s6" data-p="s6"><span class="n">6</span><span class="l">La constitution du dossier</span><span class="p"></span></a>
+    <a href="#annotations" data-p="annotations"><span class="n">✎</span><span class="l">Mes annotations</span><span class="p" id="nbAnnot"></span></a>
+    <a href="#bilan" data-p="bilan"><span class="n">✓</span><span class="l">Mon bilan</span></a>
+  </nav>
+  <div class="foot">
+    Ma progression : <b id="pctTotal">0 %</b>
+    <div class="bar"><i id="barTotal"></i></div>
+    <span id="detailTotal"></span>
+  </div>
+</aside>
+
+<div id="top">
+  <button class="btn discret" id="menuBtn" type="button">☰ Menu</button>
+  <div class="status" id="status">Votre travail s'enregistre automatiquement dans ce navigateur.</div>
+  <button class="btn" type="button" id="btnExport" title="Télécharge un fichier de sauvegarde à conserver">⬇ Télécharger ma sauvegarde</button>
+  <button class="btn" type="button" id="btnImport" title="Recharge un fichier de sauvegarde">⬆ Reprendre une sauvegarde</button>
+  <button class="btn plein" type="button" id="btnPrint">Enregistrer en PDF</button>
+  <input type="file" id="fileImport" accept=".json,application/json" hidden>
+</div>
+
+<main>
+<div id="entete-impression">
+  <div class="bandeau"><div class="k">IOBSP · Niveau 2 · Bloc 2 · Journée 3</div><h1>Livret de révision — Le crédit à la consommation et les crédits de trésorerie</h1><div class="s" id="printNom"></div></div>
+</div>
+
+<section class="page" id="p-accueil">
+  <div class="bandeau">
+    <div class="k">IOBSP · Niveau 2 · Bloc 2 · Journée 3</div>
+    <h1>Votre livret de révision — Le crédit à la consommation et les crédits de trésorerie</h1>
+    <div class="s">Arrêté du 18 juillet 2022, annexe A, point B.1 · régime issu de l'ordonnance n° 2025-880, applicable au 20 novembre 2026</div>
+  </div>
+  <div class="carte">
+    <p>Ce livret reprend la journée 3 pour que vous puissiez la retravailler à votre rythme : <b>relire le cours, l'annoter, refaire les mises en situation et garder une trace de votre travail</b>.</p>
+    <p>Le menu de gauche vous mène directement à la séquence que vous voulez reprendre. Chaque séquence comporte quatre onglets : le cours, la mise en situation, la fiche mémo et vos notes.</p>
+  </div>
+
+  <h2>Comment l'utiliser</h2>
+  <div class="etapes">
+    <div><b>Relisez le cours</b> et sélectionnez un passage pour le surligner (quatre couleurs) ou y attacher une note.</div>
+    <div><b>Refaites la mise en situation</b> : rédigez votre réponse, validez-la, puis comparez-la au corrigé. Une réponse validée ne se modifie plus.</div>
+    <div><b>Évaluez-vous</b> après chaque corrigé : « j'avais trouvé », « en partie » ou « à retravailler ». Votre bilan en tient compte.</div>
+    <div><b>Recommencez</b> quand vous voulez : « Refaire l'exercice » efface vos réponses et vous repartez de zéro.</div>
+    <div><b>Retrouvez vos annotations</b> réunies sur une seule page, et cochez les points d'examen que vous savez expliquer.</div>
+    <div><b>Conservez votre travail</b> : téléchargez votre sauvegarde ou enregistrez le livret en PDF, avec vos notes et vos surlignages.</div>
+  </div>
+
+  <div class="alerte-poste">
+    <b>Votre travail reste dans ce navigateur, sur cet ordinateur.</b> Pour le retrouver ailleurs ou ne pas le perdre, cliquez régulièrement sur <b>« Télécharger ma sauvegarde »</b> : vous rechargez ce fichier avec « Reprendre une sauvegarde ». Sur un poste partagé, effacez vos données avant de partir.
+  </div>
+
+  <h2>Les objectifs de la journée</h2>
+  <div class="trois"><div><b class='tt'>Qualifier</b>Déterminer si une opération relève du régime protecteur du crédit à la consommation, et à quelle date de conclusion.</div><div><b class='tt'>Choisir la forme</b>Choisir la forme de crédit adaptée au besoin exprimé et en justifier le choix.</div><div><b class='tt'>Situer les lois</b>Situer les lois MURCEF, Châtel et Lagarde et leur rattacher les règles qui en découlent.</div><div><b class='tt'>Distinguer les fichiers</b>Distinguer le FICP, le FCC et FIBEN par leur objet, leurs effets et leurs durées.</div><div><b class='tt'>Chiffrer</b>Calculer un coût total, lire un TAEG et vérifier le respect du taux d'usure.</div><div><b class='tt'>Identifier les engagés</b>Déterminer qui est engagé, et sur quel patrimoine, en présence d'une caution ou d'un conjoint ; constituer un dossier complet et en assurer la traçabilité.</div></div>
+
+  <div class="champ">
+    <label for="nom">Votre prénom et votre nom — facultatif, ils figureront sur votre PDF et sur le nom de votre sauvegarde</label>
+    <input id="nom" data-k="identite_nom" autocomplete="off" placeholder="Prénom Nom">
+  </div>
+  <div class="suiv">
+    <button class="btn discret" type="button" id="btnReset">Effacer mes données de ce navigateur</button>
+    <a class="btn plein" href="#s1">Commencer par la séquence 1 →</a>
+  </div>
+</section>
+
+
+<section class="page" id="p-s1" data-seq="s1">
+  <div class="bandeau"><div class="k">Séquence 1</div><h1>Qualifier l'opération et informer le client</h1></div>
+  <div class="onglets" role="tablist"><button type="button" data-t="cours">Le cours</button><button type="button" data-t="exo">Mise en situation</button><button type="button" data-t="memo">Fiche mémo</button><button type="button" data-t="moi">Mes notes</button></div>
+  <div class="tab" data-t="cours"><h2 class="ptitre">Le cours</h2><p class="aide-annot no-print">Sélectionnez un passage pour le surligner ou y ajouter une note. Cliquez sur un passage surligné pour le modifier.</p><article class="carte-cours" id="s1c1"><header class="ch"><div class="kick">La date de référence</div><h3>Deux régimes en parallèle</h3></header><div class="annot" data-z="s1c1"><div class="encadre "><div class="tt">La date qui structure toute la journée : 20 novembre 2026</div>L'ordonnance n° 2025-880 du 3 septembre 2025 transpose la directive (UE) 2023/2225. Elle entre en vigueur le 20 novembre 2026. Les contrats en cours à cette date restent régis par le droit antérieur, jusqu'à leur terme : vous manierez donc les deux régimes en parallèle pendant plusieurs années. À l'examen : dès qu'un énoncé porte une date, cette date est là pour être utilisée.</div></div></article><article class="carte-cours" id="s1c2"><header class="ch"><div class="kick">Les acteurs</div><h3>Trois acteurs</h3></header><div class="annot" data-z="s1c2"><div class="trois"><div><b class="tt">L'emprunteur : un consommateur</b>Une personne physique qui agit à des fins n'entrant pas dans le cadre de son activité commerciale, industrielle, artisanale, libérale ou agricole. Une société n'est jamais un consommateur. Un artisan qui finance sa camionnette professionnelle non plus ; le même artisan qui finance la voiture familiale, oui. <b>Le critère n'est pas la personne, c'est la finalité de l'opération.</b></div><div><b class="tt">Le prêteur</b>Il consent le crédit à titre habituel, dans l'exercice de ses activités.</div><div><b class="tt">L'intermédiaire de crédit</b>Il présente, propose, aide à conclure ou accomplit les travaux préparatoires, contre rémunération. Il n'est pas un simple apporteur d'affaires : le code fait peser sur lui, en son nom propre, des obligations d'information, d'explication et de mise en garde.</div></div></div></article><article class="carte-cours" id="s1c3"><header class="ch"><div class="kick">Le champ d'application</div><h3>Ce qui entre dans le régime — et ce qui en sort</h3></header><div class="annot" data-z="s1c3"><table><tr><th>Critère</th><th>Jusqu'au 19 nov. 2026</th><th>À compter du 20 nov. 2026</th></tr><tr><td>Montant</td><td>de 200 € à 75 000 €</td><td>dès le premier euro, jusqu'à 100 000 €</td></tr><tr><td>Durée</td><td>plus de trois mois</td><td>critère abandonné si frais négligeables</td></tr><tr><td>Paiement fractionné · mini-crédits · LOA</td><td>hors du régime</td><td>dans le régime</td></tr><tr><td>Découvert &lt; 200 € ou &lt; 1 mois</td><td>hors du régime — la « zone grise »</td><td>dans le régime, solvabilité proportionnée</td></tr></table><p>À compter du 20 novembre 2026, entrent dans le champ les crédits gratuits ou à frais négligeables, les crédits de trois mois ou moins à frais négligeables — donc le paiement fractionné et différé —, les mini-crédits et la location avec option d'achat.</p><div class="encadre "><div class="tt">Restent en dehors</div>Le crédit immobilier, les crédits d'un montant total supérieur à 100 000 €, la location simple sans option d'achat, le crédit professionnel, et les opérations exclues par l'article L. 312-4.</div><div class="encadre "><div class="tt">La méthode</div>Ne jamais raisonner par ressemblance. On regarde le texte, on vérifie l'absence d'exclusion, on conclut. Se tromper de régime, c'est se tromper sur tout le reste : publicité, information, rétractation, sanction.</div></div></article><article class="carte-cours" id="s1c4"><header class="ch"><div class="kick">La publicité</div><h3>Claire, loyale et non trompeuse</h3></header><div class="annot" data-z="s1c4"><p>Toute publicité portant sur une opération de crédit à la consommation, quel qu'en soit le support, est claire, loyale et non trompeuse. Elle contient la mention : <b>« Attention ! Un crédit coûte de l'argent et doit être remboursé »</b>, précise, visible et le cas échéant audible.</p><p>Dès qu'un taux ou un chiffre relatif au coût apparaît, les informations chiffrées obligatoires sont présentées au moyen d'un <b>exemple représentatif</b> — un exemple auquel une part significative des clients peut réellement prétendre.</p><div class="encadre "><div class="tt">Formulations prohibées</div>Celles qui laissent croire que le crédit améliore la situation financière, qu'il constitue une ressource, ou qu'il est accordé sans examen de la situation : « réponse garantie », « sans justificatif », « argent disponible », « pouvoir d'achat retrouvé ».</div></div></article><article class="carte-cours" id="s1c5"><header class="ch"><div class="kick">La FIPEN</div><h3>La fiche d'informations précontractuelles européennes normalisées</h3></header><div class="annot" data-z="s1c5"><p>Ce n'est pas une plaquette commerciale : c'est un formulaire dont le contenu et l'ordre des rubriques sont imposés, précisément pour permettre au client de comparer deux offres concurrentes ligne à ligne. La normalisation est européenne : le même document, dans la même structure, partout dans l'Union. Elle va du professionnel vers le client : elle informe. À ne pas confondre avec la fiche d'informations de solvabilité, qui va du client vers le professionnel et que le client signe (séquence 6).</p><table><tr><th>Rubrique</th><th>Contenu</th></tr><tr><td>1. Identité et coordonnées</td><td>Prêteur · intermédiaire de crédit, adresse et qualité</td></tr><tr><td>2. Caractéristiques essentielles</td><td>Type de crédit · montant total du crédit · conditions de mise à disposition des fonds · durée · montant, nombre et périodicité des échéances · montant total dû</td></tr><tr><td>3. Coût du crédit</td><td>Taux débiteur · TAEG illustré par un exemple représentatif · services accessoires obligatoires · frais liés · coût en cas de retard de paiement</td></tr><tr><td>4. Autres aspects juridiques</td><td>Droit de rétractation · remboursement anticipé et indemnité éventuelle · consultation d'une base de données · droit de recevoir copie du projet de contrat</td></tr><tr><td>5. Informations supplémentaires</td><td>En cas de vente à distance</td></tr></table><table><tr><th>Question</th><th>Réponse</th></tr><tr><td>Quand ?</td><td>En temps utile avant que l'emprunteur ne soit lié par un contrat ou une offre — ni au moment de signer, ni sur le pas de la porte</td></tr><tr><td>Sur quel support ?</td><td>Un support durable choisi par l'emprunteur : le choix appartient au client</td></tr><tr><td>Que déclenche-t-elle ?</td><td>Sa remise complète conditionne le point de départ du délai de rétractation</td></tr><tr><td>Si elle n'est pas remise ?</td><td>Le délai expire douze mois et quatorze jours après la conclusion — et il n'expire pas si l'emprunteur n'a jamais été informé de son droit de rétractation</td></tr></table></div></article><article class="carte-cours" id="s1c6"><header class="ch"><div class="kick">Au 20 novembre 2026</div><h3>Les deux nouveautés</h3></header><div class="annot" data-z="s1c6"><div class="deux"><div><b class="tt">Le rappel du droit de rétractation</b>Si l'information est fournie moins d'un jour avant que l'emprunteur ne soit lié, un rappel de sa faculté de rétractation et de la procédure à suivre lui est adressé <b>entre un et sept jours après la conclusion</b>. C'est une fenêtre : elle se manque dans les deux sens.</div><div><b class="tt">Le traitement automatisé</b>L'emprunteur doit être informé lorsque l'offre ou l'évaluation de sa solvabilité repose sur un traitement automatisé de ses données.</div></div></div></article><article class="carte-cours" id="s1c7"><header class="ch"><div class="kick">Trois obligations à ne pas confondre</div><h3>Explications adéquates, mise en garde, conseil</h3></header><div class="annot" data-z="s1c7"><div class="trois"><div><b class="tt">Les explications adéquates</b>Obligatoires et gratuites. Elles doivent permettre à l'emprunteur de déterminer si le crédit et les services accessoires proposés sont adaptés à ses besoins et à sa situation financière — caractéristiques essentielles, conséquences financières y compris en cas de défaut de paiement, modalités de résiliation des services accessoires.</div><div><b class="tt">Le devoir de mise en garde</b>Il se déclenche lorsque l'opération présente un risque au regard de la situation de l'emprunteur. Il consiste à alerter, et l'alerte doit être traçable.</div><div><b class="tt">Le service de conseil</b>Facultatif, mais réglementé : dès lors qu'il est fourni ou seulement annoncé, il suppose une recommandation personnalisée écrite fondée sur un nombre suffisant de contrats.</div></div></div></article></div>
+  <div class="tab" data-t="exo"><h2 class="ptitre">Mise en situation n° 1</h2><div class="exo-barre no-print"><span class="exo-etat"></span><button type="button" class="btn discret refaire" data-seq="s1">↻ Refaire l'exercice</button></div><div class="mes-tete"><div class="k">Mise en situation n° 1</div><div class="h">Dans le champ, ou hors du champ ?</div></div><div class="consigne"><div class="tt">Consigne</div><p>Huit opérations à qualifier, <b>au régime applicable à compter du 20 novembre 2026</b>. Pour chacune, dites si elle entre dans le champ du crédit à la consommation et justifiez en une phrase.</p></div><div class="cas" data-case="s1_1"><div class="ct"><span class="lettre">1</span><span class="tx">Opération 1</span><span class="badge"></span></div><p class="enonce">Un paiement en quatre fois sans frais, proposé à la caisse d'un site marchand pour un canapé à 1 200 €.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_1"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Dans le champ.</div>
+<div class="annot" data-z="s1x1"><p>Durée de trois mois ou moins et frais négligeables : entrée dans le régime au 20 novembre 2026.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>L'objection « mais c'est sans frais » ne tient pas : ce sont précisément les crédits à frais négligeables qui entrent.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s1_2"><div class="ct"><span class="lettre">2</span><span class="tx">Opération 2</span><span class="badge"></span></div><p class="enonce">Un mini-crédit de 150 € souscrit par application mobile, remboursable en trois échéances.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_2"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Dans le champ.</div>
+<div class="annot" data-z="s1x2"><p>Le plancher de 200 € est supprimé : le régime s'applique dès le premier euro.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Le plancher est <b>supprimé</b>, pas abaissé — la réponse « abaissé à 50 € » est une erreur fréquente.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s1_3"><div class="ct"><span class="lettre">3</span><span class="tx">Opération 3</span><span class="badge"></span></div><p class="enonce">Une location avec option d'achat sur un véhicule d'occasion.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_3"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Dans le champ.</div>
+<div class="annot" data-z="s1x3"><p>La LOA est expressément intégrée par la réforme.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Le critère de qualification de la LOA est unique : l'existence de l'option d'achat.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s1_4"><div class="ct"><span class="lettre">4</span><span class="tx">Opération 4</span><span class="badge"></span></div><p class="enonce">Un prêt de 210 000 € destiné à l'acquisition de la résidence principale.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_4"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Hors du champ.</div>
+<div class="annot" data-z="s1x4"><p>Financement de l'acquisition d'un immeuble d'habitation : régime distinct du crédit immobilier.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Deux raisons concourent ici (objet immobilier et montant au-delà de 100 000 €), mais c'est l'objet qui qualifie d'abord.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s1_5"><div class="ct"><span class="lettre">5</span><span class="tx">Opération 5</span><span class="badge"></span></div><p class="enonce">Un crédit de 140 000 € destiné à des travaux, sans garantie hypothécaire.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_5"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Hors du champ.</div>
+<div class="annot" data-z="s1x5"><p>Le montant total dépasse le plafond de 100 000 €.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Le piège : l'absence d'hypothèque ne suffit pas à en faire un crédit à la consommation.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s1_6"><div class="ct"><span class="lettre">6</span><span class="tx">Opération 6</span><span class="badge"></span></div><p class="enonce">Une location longue durée de véhicule sur 48 mois, sans possibilité d'acquisition.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_6"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Hors du champ.</div>
+<div class="annot" data-z="s1x6"><p>Sans option d'achat, il n'y a pas de financement mais une simple location. La réforme fait entrer la LOA, pas la location simple.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>LOA et LLD se ressemblent ; seule l'option d'achat fait la différence.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s1_7"><div class="ct"><span class="lettre">7</span><span class="tx">Opération 7</span><span class="badge"></span></div><p class="enonce">Un crédit-bail souscrit par une SARL pour son outillage.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_7"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Hors du champ.</div>
+<div class="annot" data-z="s1x7"><p>L'emprunteur est une personne morale : il n'est jamais consommateur.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Le consommateur est toujours une personne physique agissant hors de son activité professionnelle.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s1_8"><div class="ct"><span class="lettre">8</span><span class="tx">Opération 8</span><span class="badge"></span></div><p class="enonce">Un découvert autorisé de 180 € consenti pour trois semaines.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s1_8"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Dans le champ à compter du 20 novembre 2026.</div>
+<div class="annot" data-z="s1x8"><p>La zone grise des découverts de moins de 200 € ou de moins d'un mois se referme.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Avant le 20 novembre 2026, ce découvert échappait au régime complet. La date de conclusion change la réponse : à l'examen, une date dans l'énoncé est là pour être utilisée.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div></div>
+  <div class="tab" data-t="memo"><h2 class="ptitre">Fiche mémo de synthèse — thèmes 1 et 2</h2><div class="no-print memo-outils"><button type="button" class="btn discret tout-ouvrir">Tout déplier</button></div><details class="bloc"><summary>1 · Le champ d'application</summary><div class="in annot" data-z="s1m1"><table><tr><th>Critère</th><th>Jusqu'au 19 nov. 2026</th><th>À compter du 20 nov. 2026</th></tr><tr><td>Montant</td><td>de 200 € à 75 000 €</td><td>dès le premier euro, jusqu'à 100 000 €</td></tr><tr><td>Durée</td><td>plus de trois mois</td><td>critère abandonné si frais négligeables</td></tr><tr><td>Paiement fractionné · mini-crédits · LOA</td><td>hors du régime</td><td>dans le régime</td></tr><tr><td>Découvert &lt; 200 € ou &lt; 1 mois</td><td>hors du régime — la « zone grise »</td><td>dans le régime, solvabilité proportionnée</td></tr></table><p>Restent en dehors : crédit immobilier · crédits &gt; 100 000 € · location simple sans option d'achat · crédit professionnel · exclusions de l'article L. 312-4. Le consommateur est la personne physique agissant hors de son activité professionnelle : c'est la finalité de l'opération qui qualifie, pas le statut.</p></div></details><details class="bloc"><summary>2 · La publicité et la FIPEN</summary><div class="in annot" data-z="s1m2"><div class="encadre"><div class="tt">Publicité</div>Claire, loyale et non trompeuse, quel qu'en soit le support. Mention obligatoire : « Attention ! Un crédit coûte de l'argent et doit être remboursé », précise, visible et le cas échéant audible. Dès qu'un chiffre de coût apparaît : exemple représentatif. Prohibées : « réponse garantie », « sans justificatif », « argent disponible », « pouvoir d'achat retrouvé ».</div><p><b>La FIPEN</b> — fiche d'informations précontractuelles européennes normalisées en matière de crédit aux consommateurs. Formulaire dont le contenu et l'ordre des rubriques sont imposés, pour permettre la comparaison de deux offres ligne à ligne. Elle va du professionnel vers le client : elle informe. Cinq rubriques : identité · caractéristiques essentielles · coût du crédit · autres aspects juridiques · informations en cas de vente à distance.</p><table><tr><th>Question</th><th>Réponse</th></tr><tr><td>Quand ?</td><td>En temps utile avant que l'emprunteur ne soit lié — ni au moment de signer, ni sur le pas de la porte</td></tr><tr><td>Sur quel support ?</td><td>Un support durable choisi par l'emprunteur</td></tr><tr><td>Que déclenche-t-elle ?</td><td>Sa remise complète conditionne le point de départ du délai de rétractation</td></tr><tr><td>Si elle n'est pas remise ?</td><td>Le délai expire 12 mois et 14 jours après la conclusion — et n'expire pas si l'emprunteur n'a jamais été informé de son droit</td></tr></table><div class="encadre"><div class="tt">Les deux nouveautés de 2026</div>Rappel du droit de rétractation : si l'information est fournie moins d'un jour avant l'engagement, un rappel est adressé entre un et sept jours après la conclusion — une fenêtre, elle se manque dans les deux sens. Traitement automatisé : l'emprunteur doit être informé lorsque l'offre ou l'évaluation repose sur un traitement automatisé de ses données.</div><div class="encadre"><div class="tt">Trois obligations distinctes</div>Explications adéquates — obligatoires et gratuites · Mise en garde — due si l'opération présente un risque, et tracée · Conseil — facultatif, mais réglementé dès qu'il est fourni ou annoncé : recommandation personnalisée écrite.</div></div></details></div>
+  <div class="tab" data-t="moi"><h2 class="ptitre">Mes notes</h2>
+    <div class="zone notes"><textarea data-k="s1_notes" placeholder="Vos notes libres sur cette séquence : ce que vous retenez, vos questions, vos exemples tirés de votre pratique…"></textarea></div>
+    <div class="photos" data-k="s1_photos"></div>
+    <h3>Les points clés — cochez ce que vous savez expliquer</h3><div class="exam"><label><input type="checkbox" data-k="s1_ex1"><span class="q">La qualification se déduit du texte, jamais de la ressemblance.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s1_ex2"><span class="q">Au 20 novembre 2026, le plancher de 200 € est supprimé (et non abaissé) ; le plafond passe à 100 000 €.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s1_ex3"><span class="q">Paiement fractionné, mini-crédits et LOA entrent dans le régime ; la location simple et le crédit professionnel restent dehors.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s1_ex4"><span class="q">FIPEN : le sigle développé, ses cinq rubriques, et le fait que sa remise complète fait courir le délai de rétractation.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s1_ex5"><span class="q">Le rappel du droit de rétractation : entre un et sept jours après la conclusion.</span><span class="etat"></span></label></div></div>
+  <div class="suiv"><a class="btn discret" href="#accueil">← Accueil</a><a class="btn plein" href="#s2">Séquence 2 →</a></div>
+</section>
+
+<section class="page" id="p-s2" data-seq="s2">
+  <div class="bandeau"><div class="k">Séquence 2</div><h1>Les formes de crédit et les crédits de trésorerie</h1></div>
+  <div class="onglets" role="tablist"><button type="button" data-t="cours">Le cours</button><button type="button" data-t="exo">Mise en situation</button><button type="button" data-t="memo">Fiche mémo</button><button type="button" data-t="moi">Mes notes</button></div>
+  <div class="tab" data-t="cours"><h2 class="ptitre">Le cours</h2><p class="aide-annot no-print">Sélectionnez un passage pour le surligner ou y ajouter une note. Cliquez sur un passage surligné pour le modifier.</p><article class="carte-cours" id="s2c1"><header class="ch"><div class="kick">Cinq formes, cinq logiques</div><h3>Prêt personnel et crédit affecté</h3></header><div class="annot" data-z="s2c1"><div class="deux"><div><b class="tt">Le prêt personnel</b>Un crédit non affecté : une somme est versée, les fonds sont libres d'emploi, le remboursement se fait par échéances généralement fixes. C'est un contrat isolé, qui ne dépend d'aucun autre.</div><div><b class="tt">Le crédit affecté</b>Il finance un bien ou une prestation déterminés, et la loi le rattache au contrat qu'il sert à payer. Ce rattachement s'appelle l'<b>interdépendance</b>.</div></div><h4>Les quatre effets de l'interdépendance</h4><ol class='num'><li>Le crédit est résolu ou annulé de plein droit lorsque le contrat principal l'est.</li><li>Les obligations de l'emprunteur ne prennent effet qu'à compter de la livraison du bien ou de la fourniture de la prestation.</li><li>En cas d'inexécution du vendeur, l'emprunteur peut demander en justice la suspension du contrat de crédit.</li><li>L'exercice du droit de rétractation sur le crédit emporte résolution de plein droit du contrat de vente.</li></ol><div class="encadre "><div class="tt">Conséquence pratique</div>Le crédit affecté protège l'emprunteur contre la défaillance du vendeur ; le prêt personnel ne le protège pas.</div></div></article><article class="carte-cours" id="s2c2"><header class="ch"><div class="kick">Le crédit renouvelable</div><h3>Une réserve qui se reconstitue — et ses chiffres</h3></header><div class="annot" data-z="s2c2"><p>Une réserve est mise à disposition, utilisée librement, et se reconstitue à mesure des remboursements. Cette souplesse est aussi son danger.</p><ul><li>Le contrat est conclu pour <b>un an et reconductible</b>. Chaque année, le prêteur consulte le fichier des incidents de remboursement et informe l'emprunteur des conditions de reconduction, en temps utile pour qu'il puisse s'y opposer.</li><li>L'emprunteur peut à tout moment demander la réduction de sa réserve, la suspension de son droit à l'utiliser, ou la résiliation.</li><li><b>Amortissement minimal :</b> chaque échéance comprend un remboursement minimal du capital utilisé, de sorte que le crédit soit remboursé dans un délai maximal de <b>36 mois</b> lorsque le montant total est inférieur ou égal à <b>3 000 €</b>, et de <b>60 mois</b> au-delà.</li><li>Au-delà de <b>1 000 €</b> sur le lieu de vente ou à distance, l'offre de crédit renouvelable doit être accompagnée d'une proposition de crédit amortissable, comparable sur au moins deux hypothèses de délai de remboursement.</li><li>Cartes : mention « carte de crédit » visible, et avantages commerciaux non subordonnés à l'utilisation du crédit.</li></ul><div class="encadre "><div class="tt">Trois chiffres qui sonnent juste et sont faux</div>« 48 mois » n'est pas une durée légale — elle sonne juste parce qu'elle est intermédiaire · « 5 000 € » n'est pas le seuil de bascule des durées : le seuil est de 3 000 € · « 3 000 € » n'est pas le seuil de la proposition d'amortissable : ce seuil est de 1 000 €.</div></div></article><article class="carte-cours" id="s2c3"><header class="ch"><div class="kick">La location avec option d'achat</div><h3>La LOA : l'usage, avec une option</h3></header><div class="annot" data-z="s2c3"><p>Le professionnel reste propriétaire ; le client verse des loyers pour l'usage et peut acquérir le bien en levant l'option contre la valeur de rachat. <b>Le critère de qualification est unique : l'existence de l'option.</b> À compter du 20 novembre 2026, la LOA entre pleinement dans le champ du crédit à la consommation.</p><div class="encadre "><div class="tt">Lire le coût réel</div>Le coût réel se lit en additionnant le premier versement, la totalité des loyers et la valeur de rachat. Un loyer et une mensualité de crédit ne sont pas comparables : le premier paie l'usage, la seconde l'acquisition.</div></div></article><article class="carte-cours" id="s2c4"><header class="ch"><div class="kick">Les crédits de trésorerie</div><h3>Découvert, facilité de caisse et dépassement</h3></header><div class="annot" data-z="s2c4"><div class="trois"><div><b class="tt">L'autorisation de découvert</b>L'autorisation expresse donnée au client de rendre son compte débiteur dans une limite convenue : c'est un contrat de crédit.</div><div><b class="tt">La facilité de caisse</b>Un découvert de courte durée, absorbant un décalage.</div><div><b class="tt">Le dépassement</b>Le solde débiteur qui excède l'autorisation, ou qui apparaît sans autorisation.</div></div><div class="encadre "><div class="tt">La zone grise se referme</div>Jusqu'au 19 novembre 2026, les découverts d'un montant inférieur à 200 € ou d'une durée inférieure à un mois échappent au régime complet. À compter du 20 novembre, tous les découverts autorisés des particuliers relèvent du régime, quels que soient leur montant et leur durée. L'évaluation de la solvabilité est proportionnée au montant et à la durée : allégée pour un petit découvert court, complète pour un crédit classique. Proportionnée ne veut dire ni absente, ni identique. La réforme ne supprime pas le découvert : elle le documente. C'est la tolérance durable d'un dépassement sans accord écrit qui est appelée à disparaître.</div></div></article><article class="carte-cours" id="s2c5"><header class="ch"><div class="kick">L'arbre de décision</div><h3>Quatre questions, dans cet ordre</h3></header><div class="annot" data-z="s2c5"><ol class='num'><li>Le crédit finance-t-il un achat déterminé ? Si oui, le crédit affecté s'impose.</li><li>Le besoin est-il ponctuel et chiffré, ou récurrent et imprécis ?</li><li>Le client veut-il la propriété, ou l'usage ?</li><li>S'agit-il d'un décalage de trésorerie, ou d'un besoin de financement durable ?</li></ol><div class="encadre "><div class="tt">À retenir</div>Ces quatre questions partent toutes du besoin du client, jamais du produit. La tentation inverse — proposer la forme la plus rémunératrice puis habiller le besoin — est précisément ce que sanctionnent le devoir de mise en garde et l'obligation d'explications adéquates.</div></div></article></div>
+  <div class="tab" data-t="exo"><h2 class="ptitre">Mise en situation n° 2</h2><div class="exo-barre no-print"><span class="exo-etat"></span><button type="button" class="btn discret refaire" data-seq="s2">↻ Refaire l'exercice</button></div><div class="mes-tete"><div class="k">Mise en situation n° 2</div><div class="h">Quelle forme pour quel client ?</div></div><div class="consigne"><div class="tt">Consigne</div><p>Quatre situations. Pour chacune, posez les quatre questions de l'arbre de décision, annoncez votre préconisation et justifiez-la. Anticipez l'objection que le client pourrait vous opposer.</p></div><div class="cas" data-case="s2_A"><div class="ct"><span class="lettre">A</span><span class="tx">M. Bertin</span><span class="badge"></span></div><p class="enonce">M. Bertin veut financer 12 000 € de travaux commandés à une entreprise identifiée, devis signé.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s2_A"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Crédit affecté.</div>
+<div class="annot" data-z="s2xA"><p>Prestation déterminée, prestataire identifié : c'est la seule forme qui lie le sort du crédit à celui des travaux. Si l'entreprise défaille, le crédit tombe avec le contrat, et les obligations ne commencent qu'à la fourniture de la prestation.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Objection attendue : « le prêt personnel est plus rapide » — répondre par la protection perdue.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s2_B"><div class="ct"><span class="lettre">B</span><span class="tx">Mme Rouault</span><span class="badge"></span></div><p class="enonce">Mme Rouault a besoin de 4 000 € pour un projet personnel qu'elle ne souhaite pas détailler.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s2_B"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Prêt personnel.</div>
+<div class="annot" data-z="s2xB"><p>Besoin ponctuel et chiffré, sans achat déterminé, fonds libres d'emploi : montant, durée et échéance connus d'avance.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Le refus de détailler n'a pas à être surmonté : le prêt personnel ne suppose aucun justificatif d'usage.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s2_C"><div class="ct"><span class="lettre">C</span><span class="tx">M. Hallier</span><span class="badge"></span></div><p class="enonce">M. Hallier veut changer de véhicule tous les trois ans et ne tient pas à en être propriétaire.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s2_C"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Location avec option d'achat — en lui présentant le coût total, et non le seul loyer.</div>
+<div class="annot" data-z="s2xC"><p>Le besoin porte sur l'usage, pas sur la propriété. Rappelez-lui que sans levée d'option, il aura payé l'usage sans rien posséder.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Objection attendue : « le loyer est bien plus bas qu'une mensualité » — c'est un effet d'optique, les deux ne recouvrent pas la même chose : le loyer paie l'usage, la mensualité l'acquisition.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s2_D"><div class="ct"><span class="lettre">D</span><span class="tx">Mme Dujardin</span><span class="badge"></span></div><p class="enonce">Mme Dujardin est débitrice toute l'année, au plafond de son autorisation de découvert de 900 €. Elle demande à porter cette autorisation à 1 500 €.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s2_D"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Aucune de ces formes.</div>
+<div class="annot" data-z="s2xD"><p>Ce n'est plus un décalage de trésorerie mais un besoin de financement durable, probablement le signe d'un déséquilibre. Augmenter l'autorisation ou ouvrir une réserve reviendrait à déplacer le problème et engagerait le devoir de mise en garde. La bonne réponse est d'examiner sa situation.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>C'est le seul cas de la journée où il ne faut rien vendre. La quatrième question de l'arbre — décalage ou financement durable ? — tranche à elle seule.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div></div>
+  <div class="tab" data-t="memo"><h2 class="ptitre">Fiche mémo de synthèse — thème 3</h2><div class="no-print memo-outils"><button type="button" class="btn discret tout-ouvrir">Tout déplier</button></div><details class="bloc"><summary>3 · Les formes de crédit</summary><div class="in annot" data-z="s2m1"><table><tr><th>Forme</th><th>Point de droit décisif</th><th>Quand la proposer</th></tr><tr><td>Prêt personnel</td><td>Contrat isolé : aucune interdépendance</td><td>Besoin ponctuel et chiffré</td></tr><tr><td>Crédit affecté</td><td>Interdépendance : résolution de plein droit · obligations différées à la livraison · suspension possible · rétractation emportant résolution de la vente</td><td>Dès qu'un achat déterminé est financé</td></tr><tr><td>Crédit renouvelable</td><td>1 an reconductible · 36 mois ≤ 3 000 €, 60 mois au-delà · proposition d'amortissable obligatoire au-delà de 1 000 € sur le lieu de vente</td><td>Besoin récurrent, en mesurant le coût</td></tr><tr><td>LOA</td><td>Le critère est l'option d'achat. Coût réel = versement initial + loyers + valeur de rachat</td><td>Usage plutôt que propriété</td></tr><tr><td>Trésorerie</td><td>Découvert autorisé · facilité de caisse · dépassement</td><td>Décalage de quelques jours. Jamais un besoin durable</td></tr></table><div class="encadre"><div class="tt">Trois chiffres qui sonnent juste et sont faux</div>« 48 mois » n'existe pas · le seuil des durées est 3 000 €, pas 5 000 € · le seuil de la proposition d'amortissable est 1 000 €, pas 3 000 €.</div></div></details></div>
+  <div class="tab" data-t="moi"><h2 class="ptitre">Mes notes</h2>
+    <div class="zone notes"><textarea data-k="s2_notes" placeholder="Vos notes libres sur cette séquence : ce que vous retenez, vos questions, vos exemples tirés de votre pratique…"></textarea></div>
+    <div class="photos" data-k="s2_photos"></div>
+    <h3>Les points clés — cochez ce que vous savez expliquer</h3><div class="exam"><label><input type="checkbox" data-k="s2_ex1"><span class="q">Les quatre effets de l'interdépendance du crédit affecté.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s2_ex2"><span class="q">Renouvelable : 36 mois jusqu'à 3 000 €, 60 mois au-delà ; proposition d'amortissable au-delà de 1 000 €.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s2_ex3"><span class="q">LOA : le critère est l'option ; le coût réel additionne versement initial, loyers et valeur de rachat.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s2_ex4"><span class="q">Partir du besoin exprimé, jamais du produit.</span><span class="etat"></span></label></div></div>
+  <div class="suiv"><a class="btn discret" href="#s1">← Séquence 1</a><a class="btn plein" href="#s3">Séquence 3 →</a></div>
+</section>
+
+<section class="page" id="p-s3" data-seq="s3">
+  <div class="bandeau"><div class="k">Séquence 3</div><h1>L'encadrement et les fichiers</h1></div>
+  <div class="onglets" role="tablist"><button type="button" data-t="cours">Le cours</button><button type="button" data-t="exo">Mise en situation</button><button type="button" data-t="memo">Fiche mémo</button><button type="button" data-t="moi">Mes notes</button></div>
+  <div class="tab" data-t="cours"><h2 class="ptitre">Le cours</h2><p class="aide-annot no-print">Sélectionnez un passage pour le surligner ou y ajouter une note. Cliquez sur un passage surligné pour le modifier.</p><article class="carte-cours" id="s3c1"><header class="ch"><div class="kick">Une construction par strates</div><h3>Chaque loi répond à un abus constaté</h3></header><div class="annot" data-z="s3c1"><p>Le droit du crédit à la consommation ne s'est pas écrit d'un bloc. Derrière chaque texte, chercher la pratique qu'il a voulu faire cesser.</p><table><tr><th>Année · loi</th><th>Ce qu'elle apporte</th></tr><tr><td>1978 · Scrivener</td><td>Offre préalable, formalisme protecteur, délai de réflexion, crédit affecté et interdépendance.</td></tr><tr><td>1989 · Neiertz</td><td>Traitement du surendettement et création du FICP.</td></tr><tr><td>2001 · MURCEF</td><td>Mesures urgentes de réformes à caractère économique et financier : convention de compte de dépôt obligatoire et écrite, encadrement de la vente liée sauf produits indissociables, généralisation de la médiation bancaire. Ce n'est pas une loi du crédit : c'est une loi de la relation bancaire.</td></tr><tr><td>2005 · Châtel</td><td>Le professionnel informe le consommateur avant l'échéance de sa faculté de ne pas reconduire. Appliqué au crédit renouvelable : l'information annuelle sur les conditions de reconduction.</td></tr><tr><td>2010 · Lagarde</td><td>Rétractation portée de 7 à 14 jours ; amortissement minimal du renouvelable et proposition d'amortissable au-delà de 1 000 € ; encadrement des cartes ; devoir d'explication, vérification de la solvabilité et consultation obligatoire du FICP ; publicité et FIPEN normalisées ; taux d'usure défini par montant et non par nature ; libre choix de l'assurance emprunteur.</td></tr><tr><td>2026 · CCD2</td><td>Extension du régime au crédit numérique.</td></tr></table></div></article><article class="carte-cours" id="s3c2"><header class="ch"><div class="kick">Les trois fichiers</div><h3>FICP, FCC, FIBEN</h3></header><div class="annot" data-z="s3c2"><table><tr><th></th><th>FICP</th><th>FCC</th><th>FIBEN</th></tr><tr><td>Objet</td><td>Les incidents de remboursement caractérisés sur les crédits aux particuliers et les situations de surendettement, dès le dépôt du dossier</td><td>Les chèques sans provision non régularisés et les retraits de carte pour usage abusif</td><td>Les entreprises, leurs dirigeants et les entrepreneurs individuels : cotation Banque de France, indicateur dirigeant, encours, incidents, procédures</td></tr><tr><td>Durées</td><td>5 ans au maximum (incident non régularisé) · la durée du plan sans excéder 7 ans (surendettement) · 5 ans (rétablissement personnel)</td><td>5 ans au maximum (chèque) · 2 ans (carte)</td><td>3 ans (cessation de fonctions) · 4 ans (autres informations)</td></tr><tr><td>Effet</td><td>Aucune interdiction légale de crédit. Consultation obligatoire avant tout octroi et avant chaque reconduction annuelle d'un renouvelable. Toute régularisation entraîne la radiation anticipée.</td><td>Interdiction bancaire : plus aucun chèque, dans aucune banque, restitution des chéquiers. Le droit au compte demeure.</td><td>Accès sur adhésion contractuelle, information couverte par le secret professionnel. Usage prohibé pour instruire un crédit à des besoins non professionnels.</td></tr></table><div class="encadre "><div class="tt">À ne pas confondre</div>Le FNCI, hors programme, est consulté par les commerçants pour vérifier la régularité d'un chèque qu'on leur présente.</div></div></article><article class="carte-cours" id="s3c3"><header class="ch"><div class="kick">Ce qui départage les candidats</div><h3>Les trois confusions à désamorcer</h3></header><div class="annot" data-z="s3c3"><ul><li>« Fiché à la Banque de France » ne désigne rien. Demander <b>lequel</b> : FICP ou FCC, les effets n'ont rien à voir.</li><li>Le FICP est <b>créé</b> par Neiertz en 1989. Sa <b>consultation</b> n'est imposée que par Lagarde en 2010. Deux lois, deux rôles.</li><li>MURCEF pose l'interdiction de la vente liée. Lagarde la rend effective sur l'assurance emprunteur.</li><li>FIBEN : l'accès de votre établissement ne vaut pas autorisation de s'en servir. Son usage est <b>prohibé</b> pour instruire un crédit à des besoins non professionnels.</li></ul><div class="encadre "><div class="tt">À retenir</div>Le FICP n'interdit rien. Le FCC interdit les chèques. FIBEN est interdit d'usage. Trois fichiers, trois logiques — et une question à poser avant tout : de quel fichier parle-t-on ?</div></div></article></div>
+  <div class="tab" data-t="exo"><h2 class="ptitre">Mise en situation n° 3</h2><div class="exo-barre no-print"><span class="exo-etat"></span><button type="button" class="btn discret refaire" data-seq="s3">↻ Refaire l'exercice</button></div><div class="mes-tete"><div class="k">Mise en situation n° 3</div><div class="h">Chaque règle à sa loi, chaque élément à son fichier</div></div><div class="consigne"><div class="tt">Consigne</div><p>Deux jeux d'étiquettes à classer. Choisissez, pour chaque étiquette, la loi ou le fichier auquel elle se rattache, puis validez pour voir le corrigé ligne par ligne.</p></div><div class="cas" data-case="s3_A"><div class="ct"><span class="lettre">A</span><span class="tx">Premier jeu — chaque règle à sa loi</span><span class="badge"></span></div>
+<table class="grille classement"><tr><th>Étiquette</th><th>Votre classement</th></tr><tr><td>Convention de compte écrite</td><td><select class="rep" data-k="s3_A_1"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Encadrement de la vente liée</td><td><select class="rep" data-k="s3_A_2"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Médiation bancaire</td><td><select class="rep" data-k="s3_A_3"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Information annuelle avant reconduction</td><td><select class="rep" data-k="s3_A_4"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Fin de la reconduction tacite silencieuse</td><td><select class="rep" data-k="s3_A_5"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Rétractation portée de 7 à 14 jours</td><td><select class="rep" data-k="s3_A_6"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Amortissement minimal 36 / 60 mois</td><td><select class="rep" data-k="s3_A_7"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Consultation obligatoire du FICP</td><td><select class="rep" data-k="s3_A_8"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Libre choix de l'assurance emprunteur</td><td><select class="rep" data-k="s3_A_9"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Taux d'usure défini par montant</td><td><select class="rep" data-k="s3_A_10"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Création du FICP</td><td><select class="rep" data-k="s3_A_11"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr><tr><td>Offre préalable et formalisme protecteur</td><td><select class="rep" data-k="s3_A_12"><option value=""></option><option>Scrivener</option><option>Neiertz</option><option>MURCEF</option><option>Châtel</option><option>Lagarde</option></select></td></tr></table><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">MURCEF : 3 · Châtel : 2 · Lagarde : 5 · Neiertz : 1 · Scrivener : 1.</div><div class="score"></div>
+<div class="annot" data-z="s3xA"><table class="grille-corr"><tr><th>Étiquette</th><th>Réponse</th></tr><tr data-attendu="MURCEF" data-sel="s3_A_1"><td>Convention de compte écrite</td><td><b>MURCEF</b><span class="verdict"></span></td></tr><tr data-attendu="MURCEF" data-sel="s3_A_2"><td>Encadrement de la vente liée</td><td><b>MURCEF</b><span class="verdict"></span></td></tr><tr data-attendu="MURCEF" data-sel="s3_A_3"><td>Médiation bancaire</td><td><b>MURCEF</b><span class="verdict"></span></td></tr><tr data-attendu="Châtel" data-sel="s3_A_4"><td>Information annuelle avant reconduction</td><td><b>Châtel</b><span class="verdict"></span></td></tr><tr data-attendu="Châtel" data-sel="s3_A_5"><td>Fin de la reconduction tacite silencieuse</td><td><b>Châtel</b><span class="verdict"></span></td></tr><tr data-attendu="Lagarde" data-sel="s3_A_6"><td>Rétractation portée de 7 à 14 jours</td><td><b>Lagarde</b><span class="verdict"></span></td></tr><tr data-attendu="Lagarde" data-sel="s3_A_7"><td>Amortissement minimal 36 / 60 mois</td><td><b>Lagarde</b><span class="verdict"></span></td></tr><tr data-attendu="Lagarde" data-sel="s3_A_8"><td>Consultation obligatoire du FICP</td><td><b>Lagarde</b><span class="verdict"></span></td></tr><tr data-attendu="Lagarde" data-sel="s3_A_9"><td>Libre choix de l'assurance emprunteur</td><td><b>Lagarde</b><span class="verdict"></span></td></tr><tr data-attendu="Lagarde" data-sel="s3_A_10"><td>Taux d'usure défini par montant</td><td><b>Lagarde</b><span class="verdict"></span></td></tr><tr data-attendu="Neiertz" data-sel="s3_A_11"><td>Création du FICP</td><td><b>Neiertz</b><span class="verdict"></span></td></tr><tr data-attendu="Scrivener" data-sel="s3_A_12"><td>Offre préalable et formalisme protecteur</td><td><b>Scrivener</b><span class="verdict"></span></td></tr></table><div class="retenir"><div class="tt">Pour bien retenir</div><p>Les deux confusions qui départagent : le FICP est <b>créé</b> par Neiertz mais sa <b>consultation</b> n'est imposée que par Lagarde ; MURCEF pose l'interdiction de la vente liée, Lagarde la rend effective sur l'assurance.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s3_B"><div class="ct"><span class="lettre">B</span><span class="tx">Second jeu — chaque élément à son fichier</span><span class="badge"></span></div>
+<table class="grille classement"><tr><th>Étiquette</th><th>Votre classement</th></tr><tr><td>Incident de remboursement caractérisé</td><td><select class="rep" data-k="s3_B_1"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Dépôt d'un dossier de surendettement</td><td><select class="rep" data-k="s3_B_2"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Consultation obligatoire avant tout octroi</td><td><select class="rep" data-k="s3_B_3"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Chèque sans provision non régularisé</td><td><select class="rep" data-k="s3_B_4"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Retrait de carte pour usage abusif</td><td><select class="rep" data-k="s3_B_5"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Interdiction d'émettre des chèques dans toutes les banques</td><td><select class="rep" data-k="s3_B_6"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Cotation Banque de France d'une société</td><td><select class="rep" data-k="s3_B_7"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Indicateur dirigeant</td><td><select class="rep" data-k="s3_B_8"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Accès réservé aux adhérents par contrat</td><td><select class="rep" data-k="s3_B_9"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr><tr><td>Consulté par les commerçants pour vérifier un chèque</td><td><select class="rep" data-k="s3_B_10"><option value=""></option><option>FICP</option><option>FCC</option><option>FIBEN</option><option>FNCI</option></select></td></tr></table><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">FICP : 3 · FCC : 3 · FIBEN : 3 · FNCI : l'intrus, hors programme.</div><div class="score"></div>
+<div class="annot" data-z="s3xB"><table class="grille-corr"><tr><th>Étiquette</th><th>Réponse</th></tr><tr data-attendu="FICP" data-sel="s3_B_1"><td>Incident de remboursement caractérisé</td><td><b>FICP</b><span class="verdict"></span></td></tr><tr data-attendu="FICP" data-sel="s3_B_2"><td>Dépôt d'un dossier de surendettement</td><td><b>FICP</b><span class="verdict"></span></td></tr><tr data-attendu="FICP" data-sel="s3_B_3"><td>Consultation obligatoire avant tout octroi</td><td><b>FICP</b><span class="verdict"></span></td></tr><tr data-attendu="FCC" data-sel="s3_B_4"><td>Chèque sans provision non régularisé</td><td><b>FCC</b><span class="verdict"></span></td></tr><tr data-attendu="FCC" data-sel="s3_B_5"><td>Retrait de carte pour usage abusif</td><td><b>FCC</b><span class="verdict"></span></td></tr><tr data-attendu="FCC" data-sel="s3_B_6"><td>Interdiction d'émettre des chèques dans toutes les banques</td><td><b>FCC</b><span class="verdict"></span></td></tr><tr data-attendu="FIBEN" data-sel="s3_B_7"><td>Cotation Banque de France d'une société</td><td><b>FIBEN</b><span class="verdict"></span></td></tr><tr data-attendu="FIBEN" data-sel="s3_B_8"><td>Indicateur dirigeant</td><td><b>FIBEN</b><span class="verdict"></span></td></tr><tr data-attendu="FIBEN" data-sel="s3_B_9"><td>Accès réservé aux adhérents par contrat</td><td><b>FIBEN</b><span class="verdict"></span></td></tr><tr data-attendu="FNCI" data-sel="s3_B_10"><td>Consulté par les commerçants pour vérifier un chèque</td><td><b>FNCI</b><span class="verdict"></span></td></tr></table><div class="retenir"><div class="tt">Pour bien retenir</div><p>Sur FIBEN, la question piège : « votre établissement y a accès, le client est gérant — vous regardez ? ». La réponse est non dès lors que le crédit finance un besoin non professionnel.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div></div>
+  <div class="tab" data-t="memo"><h2 class="ptitre">Fiche mémo de synthèse — thème 4</h2><div class="no-print memo-outils"><button type="button" class="btn discret tout-ouvrir">Tout déplier</button></div><details class="bloc"><summary>4 · L'encadrement et les fichiers</summary><div class="in annot" data-z="s3m1"><p><b>1978</b> Scrivener — protège à l'entrée · <b>1989</b> Neiertz — crée le FICP · <b>2001</b> MURCEF — relation bancaire · <b>2005</b> Châtel — reconduction · <b>2010</b> Lagarde — refond le crédit conso · <b>2026</b> CCD2 — crédit numérique.</p><table><tr><th></th><th>FICP</th><th>FCC</th><th>FIBEN</th></tr><tr><td>Objet</td><td>Les crédits aux particuliers</td><td>Les moyens de paiement</td><td>Les entreprises et dirigeants</td></tr><tr><td>Durées</td><td>5 ans (incident) · jusqu'à 7 ans (plan) · 5 ans (rétablissement personnel)</td><td>5 ans (chèque) · 2 ans (carte)</td><td>3 ans (cessation) · 4 ans (autres)</td></tr><tr><td>Effet</td><td>Aucune interdiction légale. Consultation obligatoire avant tout octroi</td><td>Interdiction bancaire. Le droit au compte demeure</td><td>Usage prohibé pour un crédit à besoin non professionnel</td></tr></table><div class="encadre"><div class="tt">Les deux confusions classiques</div>FICP : créé par Neiertz (1989), consulté par obligation depuis Lagarde (2010). Assurance : interdiction de la vente liée posée par MURCEF (2001), libre choix consacré par Lagarde (2010).</div></div></details></div>
+  <div class="tab" data-t="moi"><h2 class="ptitre">Mes notes</h2>
+    <div class="zone notes"><textarea data-k="s3_notes" placeholder="Vos notes libres sur cette séquence : ce que vous retenez, vos questions, vos exemples tirés de votre pratique…"></textarea></div>
+    <div class="photos" data-k="s3_photos"></div>
+    <h3>Les points clés — cochez ce que vous savez expliquer</h3><div class="exam"><label><input type="checkbox" data-k="s3_ex1"><span class="q">Rattacher chaque règle à sa loi : Scrivener, Neiertz, MURCEF, Châtel, Lagarde.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s3_ex2"><span class="q">Le FICP est créé par Neiertz, sa consultation imposée par Lagarde.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s3_ex3"><span class="q">Le FICP n'interdit rien ; le FCC interdit les chèques ; FIBEN est interdit d'usage pour un besoin non professionnel.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s3_ex4"><span class="q">Les durées d'inscription des trois fichiers.</span><span class="etat"></span></label></div></div>
+  <div class="suiv"><a class="btn discret" href="#s2">← Séquence 2</a><a class="btn plein" href="#s4">Séquence 4 →</a></div>
+</section>
+
+<section class="page" id="p-s4" data-seq="s4">
+  <div class="bandeau"><div class="k">Séquence 4</div><h1>Les caractéristiques financières</h1></div>
+  <div class="onglets" role="tablist"><button type="button" data-t="cours">Le cours</button><button type="button" data-t="exo">Mise en situation</button><button type="button" data-t="memo">Fiche mémo</button><button type="button" data-t="moi">Mes notes</button></div>
+  <div class="tab" data-t="cours"><h2 class="ptitre">Le cours</h2><p class="aide-annot no-print">Sélectionnez un passage pour le surligner ou y ajouter une note. Cliquez sur un passage surligné pour le modifier.</p><article class="carte-cours" id="s4c1"><header class="ch"><div class="kick">Deux taux, deux mesures</div><h3>Les quatre chiffres de tout dossier</h3></header><div class="annot" data-z="s4c1"><table><tr><th>Chiffre</th><th>Rôle</th></tr><tr><td>Taux débiteur</td><td>Le taux nominal. Il sert à calculer les intérêts sur le capital restant dû. Il ne dit rien des frais et ne sert pas à comparer.</td></tr><tr><td>TAEG</td><td>Le coût total du crédit en pourcentage annuel du montant emprunté. Seul indicateur qui permette de comparer deux offres — à durée et montant identiques. Obligatoire dans la publicité, la FIPEN et le contrat.</td></tr><tr><td>Coût total du crédit</td><td>L'ensemble des frais supportés en plus du capital.</td></tr><tr><td>Montant total dû</td><td>Le capital plus le coût total : ce que le client sortira en tout.</td></tr></table><div class="encadre "><div class="tt">Discipline de vocabulaire</div>Ne jamais dire « le taux » sans préciser lequel.</div></div></article><article class="carte-cours" id="s4c2"><header class="ch"><div class="kick">L'assiette du TAEG</div><h3>Ce qui entre dans le TAEG — et ce qui n'y entre pas</h3></header><div class="annot" data-z="s4c2"><div class="deux"><div><b class="tt">Y entrent</b>Les intérêts, les frais de dossier, la rémunération de l'intermédiaire, les frais d'ouverture ou de tenue de compte imposés pour obtenir le crédit, les frais liés aux garanties exigées, et le coût de l'assurance lorsqu'elle est obligatoire.</div><div><b class="tt">N'y entrent pas</b>Le coût d'une assurance réellement facultative, les frais d'incident — pénalités de retard, frais de rejet — et les sommes dues en cas de remboursement anticipé. Le TAEG mesure le coût d'un déroulement normal, non celui d'un accident.</div></div><div class="encadre "><div class="tt">Le piège de l'assurance « facultative »</div>Une assurance présentée comme facultative mais dont la souscription conditionne en fait l'octroi n'est pas facultative. Son coût doit entrer dans le TAEG, et un TAEG calculé sans elle est erroné.</div></div></article><article class="carte-cours" id="s4c3"><header class="ch"><div class="kick">Le tableau d'amortissement</div><h3>L'échéance ne bouge pas, sa composition s'inverse</h3></header><div class="annot" data-z="s4c3"><p>Les intérêts se calculent chaque mois sur le capital restant dû. Au début, ce capital est élevé : la part d'intérêts est forte, la part de capital faible. À mesure que le capital diminue, la composition s'inverse. L'échéance, elle, ne bouge pas.</p><p><i>Dossier de référence : 12 000 € sur 48 mois, taux débiteur 5,90 %, échéance 281,27 €.</i></p><table><tr><th>Échéance</th><th>Montant</th><th>Intérêts</th><th>Capital remboursé</th><th>Capital restant dû</th></tr><tr><td>n° 1</td><td>281,27 €</td><td>59,00 €</td><td>222,27 €</td><td>11 777,73 €</td></tr><tr><td>n° 24</td><td>281,27 €</td><td>32,46 €</td><td>248,81 €</td><td>6 352,73 €</td></tr><tr><td>n° 48</td><td>281,27 €</td><td>1,38 €</td><td>279,89 €</td><td>0,00 €</td></tr></table><div class="encadre "><div class="tt">Conséquence pratique</div>Un client qui a remboursé douze échéances sur quarante-huit n'a pas remboursé un quart de son capital. Savoir le lui dire avant qu'il ne le découvre évite une déception et parfois un litige.</div></div></article><article class="carte-cours" id="s4c4"><header class="ch"><div class="kick">Le point que les candidats ne voient pas venir</div><h3>L'effet de la durée : 48 mois contre 72 mois</h3></header><div class="annot" data-z="s4c4"><p>Même crédit : 12 000 € à 5,90 %, 150 € de frais de dossier.</p><table><tr><th></th><th>48 mois</th><th>72 mois</th><th>Écart</th></tr><tr><td>Échéance</td><td>281,27 €</td><td>198,31 €</td><td>− 82,96 €</td></tr><tr><td>Coût total</td><td>1 650,96 €</td><td>2 428,32 €</td><td>+ 777,36 €</td></tr><tr><td>TAEG</td><td>≈ 6,75 %</td><td>≈ 6,53 %</td><td>il baisse</td></tr></table><p>Allonger la durée réduit l'échéance et augmente le coût total. Mais le TAEG, lui, peut baisser : il est un coût rapporté au temps, et les frais fixes étalés sur davantage d'années pèsent moins par année. <b>L'offre la moins chère en taux est la plus chère en euros.</b></p><div class="encadre "><div class="tt">La règle qui en découle</div>Le TAEG ne compare valablement que deux offres de même montant et de même durée. Dès que les durées diffèrent, c'est le coût total qui tranche — et c'est ce qu'il faut dire au client.</div></div></article><article class="carte-cours" id="s4c5"><header class="ch"><div class="kick">Le taux d'usure</div><h3>Le seuil, les tranches, la sanction</h3></header><div class="annot" data-z="s4c5"><p>Est usuraire le prêt conventionnel consenti à un TAEG qui excède, au moment où il est consenti, de plus du tiers le taux effectif moyen pratiqué au cours du trimestre précédent pour des opérations de même nature. La Banque de France calcule et publie les seuils chaque trimestre au Journal officiel.</p><div class="trois"><div><b class="tt">Le calcul</b>Seuil = TAEG moyen du trimestre précédent × 4/3. On compare le TAEG de l'offre au seuil.</div><div><b class="tt">Les tranches</b>En crédit à la consommation, les catégories sont définies par le montant emprunté depuis la loi Lagarde : jusqu'à 3 000 € · de 3 000 à 6 000 € · au-delà de 6 000 €.</div><div><b class="tt">La sanction</b>Délit puni de deux ans d'emprisonnement et de 300 000 € d'amende ; civilement, les perceptions excessives s'imputent sur les intérêts puis sur le capital.</div></div></div></article></div>
+  <div class="tab" data-t="exo"><h2 class="ptitre">Mise en situation n° 4</h2><div class="exo-barre no-print"><span class="exo-etat"></span><button type="button" class="btn discret refaire" data-seq="s4">↻ Refaire l'exercice</button></div><div class="mes-tete"><div class="k">Mise en situation n° 4</div><div class="h">Poser les chiffres</div></div><div class="consigne"><div class="tt">Consigne</div><p>Calculatrice requise. <b>Dossier de référence :</b> prêt personnel de 12 000 €, 48 mois, taux débiteur 5,90 %, frais de dossier 150 €, échéance mensuelle 281,27 €. Assurance proposée à 8 € par mois.</p></div><div class="cas" data-case="s4_1"><div class="ct"><span class="lettre">1</span><span class="tx">Question 1</span><span class="badge"></span></div><p class="enonce">Calculez le total des échéances versées sur 48 mois.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s4_1"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">281,27 × 48 = 13 500,96 €.</div>
+<div class="annot" data-z="s4x1"><div class="retenir"><div class="tt">Pour bien retenir</div><p>Posez toujours l'opération avant le résultat : c'est elle qui se corrige.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s4_2"><div class="ct"><span class="lettre">2</span><span class="tx">Question 2</span><span class="badge"></span></div><p class="enonce">Déduisez-en le montant des intérêts.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s4_2"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">13 500,96 − 12 000 = 1 500,96 € d'intérêts.</div>
+<div class="annot" data-z="s4x2"><div class="retenir"><div class="tt">Pour bien retenir</div><p>Les intérêts sont ce qui s'ajoute au capital dans les échéances — sans les frais.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s4_3"><div class="ct"><span class="lettre">3</span><span class="tx">Question 3</span><span class="badge"></span></div><p class="enonce">Calculez le coût total du crédit, puis le montant total dû.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s4_3"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Coût total = 1 500,96 + 150 = 1 650,96 €. Montant total dû = 12 000 + 1 650,96 = 13 650,96 €.</div>
+<div class="annot" data-z="s4x3"><p>Le TAEG ressort à environ 6,75 %, contre 5,90 % de taux débiteur : l'écart, ce sont les frais de dossier.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Coût total = tout ce qui s'ajoute au capital. Montant total dû = capital + coût total.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s4_4"><div class="ct"><span class="lettre">4</span><span class="tx">Question 4</span><span class="badge"></span></div><p class="enonce">L'assurance de 8 € par mois est exigée pour obtenir le crédit. Quel montant faut-il ajouter, et quelle conséquence sur le TAEG ?</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s4_4"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">8 × 48 = 384 €, à intégrer au TAEG, qui augmente.</div>
+<div class="annot" data-z="s4x4"><p>Étant obligatoire, ce coût entre dans l'assiette du TAEG. Le coût total passe à 2 034,96 € et le montant total dû à 14 034,96 €. Le TAEG passe d'environ 6,75 % à environ 8,30 %.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Une assurance qui conditionne l'octroi n'est pas facultative, quel que soit le nom qu'on lui donne.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s4_5"><div class="ct"><span class="lettre">5</span><span class="tx">Question 5</span><span class="badge"></span></div><p class="enonce">Le client demande à passer sur 72 mois : l'échéance tomberait à 198,31 €. Calculez les intérêts et le coût total de cette version, puis comparez.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s4_5"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">198,31 × 72 = 14 278,32 €, soit 2 278,32 € d'intérêts et 2 428,32 € de coût total.</div>
+<div class="annot" data-z="s4x5"><p>L'échéance baisse de 82,96 € ; le coût augmente de 777,36 €. Et le TAEG tombe à environ 6,53 % : l'offre la moins chère en taux est la plus chère en euros.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Le TAEG est un coût rapporté au temps : les frais fixes étalés sur six ans au lieu de quatre pèsent moins par année. Dès que les durées diffèrent, comparez les coûts totaux.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s4_6"><div class="ct"><span class="lettre">6</span><span class="tx">Question 6</span><span class="badge"></span></div><p class="enonce">Le seuil de l'usure de la tranche applicable ressort d'un TAEG moyen de 15 % au trimestre précédent. Quel est ce seuil ?</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s4_6"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">15 × 4/3 = 20 %.</div>
+<div class="annot" data-z="s4x6"><p>Le TAEG de l'offre doit lui être inférieur.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Les seuils réels sont révisés chaque trimestre : retenez la méthode de calcul, pas un chiffre.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s4_7"><div class="ct"><span class="lettre">7</span><span class="tx">Question 7</span><span class="badge"></span></div><p class="enonce">Rédigez l'annonce des quatre chiffres au client.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s4_7"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Échéance et périodicité · TAEG · coût total · montant total dû.</div>
+<div class="annot" data-z="s4x7"><p>Si le client demande à allonger, présentez-lui les deux coûts totaux côte à côte, jamais les deux TAEG.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Annoncer les quatre chiffres, c'est aussi ce qui se trace : c'est la preuve des explications adéquates.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div></div>
+  <div class="tab" data-t="memo"><h2 class="ptitre">Fiche mémo de synthèse — thème 5</h2><div class="no-print memo-outils"><button type="button" class="btn discret tout-ouvrir">Tout déplier</button></div><details class="bloc"><summary>5 · Les caractéristiques financières</summary><div class="in annot" data-z="s4m1"><table><tr><th>Chiffre</th><th>Rôle</th></tr><tr><td>Taux débiteur</td><td>Calcule les intérêts sur le capital restant dû. Ne sert pas à comparer</td></tr><tr><td>TAEG</td><td>Coût total en % annuel. Seul indicateur de comparaison — à durée et montant identiques</td></tr><tr><td>Coût total</td><td>Tout ce qui s'ajoute au capital</td></tr><tr><td>Montant total dû</td><td>Capital + coût total</td></tr></table><div class="deux"><div><b class="tt">Entrent dans le TAEG</b>Intérêts · frais de dossier · rémunération de l'intermédiaire · frais de compte imposés · frais de garantie · assurance obligatoire</div><div><b class="tt">N'y entrent pas</b>Assurance réellement facultative · pénalités de retard · frais de rejet · indemnité de remboursement anticipé</div></div><div class="encadre"><div class="tt">Le piège de la durée — 12 000 € à 5,90 %, 150 € de frais</div>48 mois : échéance 281,27 € · coût total 1 650,96 € · TAEG ≈ 6,75 %<br/>72 mois : échéance 198,31 € · coût total 2 428,32 € · TAEG ≈ 6,53 %<br/>L'offre au TAEG le plus bas coûte 777 € de plus. Le TAEG est un coût rapporté au temps : les frais fixes étalés plus longtemps pèsent moins par année. Dès que les durées diffèrent, comparer les coûts totaux.</div><div class="encadre"><div class="tt">Usure</div>Seuil = TAEG moyen du trimestre précédent × 4/3. Trois tranches par montant (apport Lagarde) : ≤ 3 000 € · 3 000 à 6 000 € · &gt; 6 000 €. On compare le TAEG. Sanction : délit, 2 ans et 300 000 €.</div></div></details></div>
+  <div class="tab" data-t="moi"><h2 class="ptitre">Mes notes</h2>
+    <div class="zone notes"><textarea data-k="s4_notes" placeholder="Vos notes libres sur cette séquence : ce que vous retenez, vos questions, vos exemples tirés de votre pratique…"></textarea></div>
+    <div class="photos" data-k="s4_photos"></div>
+    <h3>Les points clés — cochez ce que vous savez expliquer</h3><div class="exam"><label><input type="checkbox" data-k="s4_ex1"><span class="q">Ce qui entre dans le TAEG, et ce qui n'y entre pas — dont l'assurance « facultative » qui conditionne l'octroi.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s4_ex2"><span class="q">Allonger la durée fait baisser le TAEG et monter le coût total.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s4_ex3"><span class="q">Le TAEG compare à durée et montant identiques ; sinon, on compare les coûts totaux.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s4_ex4"><span class="q">Seuil d'usure = TAEG moyen du trimestre précédent × 4/3, par tranche de montant.</span><span class="etat"></span></label></div></div>
+  <div class="suiv"><a class="btn discret" href="#s3">← Séquence 3</a><a class="btn plein" href="#s5">Séquence 5 →</a></div>
+</section>
+
+<section class="page" id="p-s5" data-seq="s5">
+  <div class="bandeau"><div class="k">Séquence 5</div><h1>Les garanties et les tiers au contrat</h1></div>
+  <div class="onglets" role="tablist"><button type="button" data-t="cours">Le cours</button><button type="button" data-t="exo">Mise en situation</button><button type="button" data-t="memo">Fiche mémo</button><button type="button" data-t="moi">Mes notes</button></div>
+  <div class="tab" data-t="cours"><h2 class="ptitre">Le cours</h2><p class="aide-annot no-print">Sélectionnez un passage pour le surligner ou y ajouter une note. Cliquez sur un passage surligné pour le modifier.</p><article class="carte-cours" id="s5c1"><header class="ch"><div class="kick">Deux familles de garanties</div><h3>Sûretés personnelles et sûretés réelles</h3></header><div class="annot" data-z="s5c1"><div class="deux"><div><b class="tt">Les sûretés personnelles</b>Elles font entrer une autre personne dans le rapport : quelqu'un s'engage à payer si l'emprunteur ne paie pas. C'est le cautionnement.</div><div><b class="tt">Les sûretés réelles</b>Elles affectent un bien. En crédit à la consommation : le gage, sur un bien meuble corporel — le gage sur véhicule notamment — et le nantissement, sur un bien meuble incorporel. L'hypothèque porte sur un immeuble et relève du crédit immobilier.</div></div></div></article><article class="carte-cours" id="s5c2"><header class="ch"><div class="kick">Le cautionnement</div><h3>Quatre règles — régime refondu au 1er janvier 2022</h3></header><div class="annot" data-z="s5c2"><p>Contrat par lequel une caution s'oblige envers le créancier à payer la dette du débiteur en cas de défaillance de celui-ci. Garantie accessoire : elle ne peut excéder la dette principale et s'éteint avec elle. Régime refondu par l'ordonnance du 15 septembre 2021, en vigueur au 1er janvier 2022.</p><table><tr><th>Article</th><th>Règle</th></tr><tr><td>2297 C. civ.</td><td>À peine de nullité de son engagement, la caution personne physique appose elle-même la mention par laquelle elle s'engage à payer ce que doit le débiteur en cas de défaillance, dans la limite d'un montant en principal et accessoires exprimé en toutes lettres et en chiffres. En cas de différence, les lettres l'emportent. Si la caution est privée des bénéfices de discussion et de division, elle doit le reconnaître dans la mention ; à défaut, elle conserve le droit de s'en prévaloir.</td></tr><tr><td>2299 C. civ.</td><td>Le créancier professionnel met en garde la caution personne physique lorsque l'engagement du débiteur principal est inadapté aux capacités financières de ce dernier. Sanction : déchéance du droit du créancier contre la caution à hauteur du préjudice subi par celle-ci.</td></tr><tr><td>2300 C. civ.</td><td>Le cautionnement manifestement disproportionné aux revenus et au patrimoine de la caution est réduit au montant à hauteur duquel elle pouvait s'engager. Ce n'est plus la décharge totale.</td></tr><tr><td>Simple ou solidaire</td><td>Caution simple : bénéfices de discussion et de division. Caution solidaire : privée des deux.</td></tr></table><div class="encadre "><div class="tt">Deux erreurs qui coûtent la question</div><b>2299 ≠ 2300.</b> La mise en garde regarde les capacités du DÉBITEUR. La proportionnalité regarde le patrimoine de la CAUTION. <b>Réduction, et non décharge :</b> depuis le 1er janvier 2022, un cautionnement disproportionné est ramené à ce que la caution pouvait supporter. Une réponse tirée d'un manuel antérieur sera fausse.</div></div></article><article class="carte-cours" id="s5c3"><header class="ch"><div class="kick">L'assurance emprunteur</div><h3>Facultative en droit, libre dans son choix</h3></header><div class="annot" data-z="s5c3"><ul><li>Aucune disposition légale n'impose de s'assurer : en crédit à la consommation, l'assurance est en principe facultative.</li><li>Depuis la loi Lagarde, l'emprunteur choisit librement son assureur, sous réserve d'un niveau de garantie équivalent : c'est la délégation d'assurance. Le prêteur ne peut ni refuser un contrat équivalent, ni modifier les conditions du crédit en représailles.</li><li>Si l'assurance est exigée, son coût entre dans le TAEG. Si elle est réellement facultative, il n'y entre pas.</li></ul><div class="encadre "><div class="tt">À ne pas transposer</div>Les dispositifs Hamon, Bourquin et Lemoine visent le crédit immobilier : ne pas les transposer au crédit à la consommation.</div></div></article><article class="carte-cours" id="s5c4"><header class="ch"><div class="kick">Le conjoint non coemprunteur</div><h3>Deux articles : 220 et 1415 du code civil</h3></header><div class="annot" data-z="s5c4"><div class="deux"><div><b class="tt">Article 220 — la solidarité ménagère</b>Solidarité des dettes ménagères. Mais la solidarité n'a pas lieu pour les dépenses manifestement excessives, ni pour les achats à tempérament, ni pour les emprunts — à moins que ceux-ci ne portent sur des sommes modestes nécessaires aux besoins de la vie courante, et que le montant cumulé ne soit pas manifestement excessif eu égard au train de vie du ménage. Les trois conditions sont cumulatives.</div><div><b class="tt">Article 1415 — les régimes de communauté</b>Chacun des époux ne peut engager que ses biens propres et ses revenus, par un cautionnement ou un emprunt, à moins que ceux-ci n'aient été contractés avec le consentement exprès de l'autre conjoint, lequel, dans ce cas, n'engage pas ses biens propres. Le consentement doit être exprès et viser cet engagement-là : une présence à la signature, une connaissance de l'opération, un accord verbal ne suffisent pas.</div></div><table><tr><th>Situation</th><th>Engagé</th><th>Hors d'atteinte</th></tr><tr><td>Emprunt seul, SANS consentement (communauté)</td><td>Biens propres et revenus de celui qui s'engage</td><td>Biens communs · biens propres du conjoint</td></tr><tr><td>Emprunt AVEC consentement exprès</td><td>Biens propres et revenus + biens communs</td><td>Biens propres du conjoint, qui n'est pas devenu codébiteur</td></tr><tr><td>Dette ménagère ordinaire (art. 220)</td><td>Solidarité : le conjoint est tenu sans avoir signé — sauf dépense manifestement excessive</td><td></td></tr><tr><td>Emprunt modeste et nécessaire à la vie courante</td><td>Solidarité malgré l'exclusion de principe — sauf cumul manifestement excessif</td><td></td></tr></table><div class="encadre "><div class="tt">À retenir</div>Ne jamais répondre « il est engagé » sans dire sur quel patrimoine. Biens propres, revenus, biens communs : trois masses distinctes — et la question porte toujours sur celle qui est atteinte.</div></div></article></div>
+  <div class="tab" data-t="exo"><h2 class="ptitre">Mise en situation n° 5</h2><div class="exo-barre no-print"><span class="exo-etat"></span><button type="button" class="btn discret refaire" data-seq="s5">↻ Refaire l'exercice</button></div><div class="mes-tete"><div class="k">Mise en situation n° 5</div><div class="h">Sur quel patrimoine ?</div></div><div class="consigne"><div class="tt">Consigne</div><p>M. et Mme Ferrand sont mariés depuis 2014 sans contrat : régime légal de la communauté réduite aux acquêts. Biens propres de Monsieur : un studio reçu par donation. Biens propres de Madame : un portefeuille de titres hérité. Biens communs : la maison familiale, deux véhicules, l'épargne du ménage. Pour chaque situation, indiquez les masses engagées et celles qui restent hors d'atteinte.</p></div><div class="cas" data-case="s5_A"><div class="ct"><span class="lettre">A</span><span class="tx">Situation 1</span><span class="badge"></span></div><p class="enonce">M. Ferrand emprunte seul 15 000 € pour une moto de loisir, sans l'accord de son épouse.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s5_A"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Engagés : biens propres et revenus de Monsieur. Hors d'atteinte : biens communs et biens propres de Madame.</div>
+<div class="annot" data-z="s5xA"><p>L'article 220 exclut les emprunts de la solidarité, et l'exception ne joue pas : 15 000 € pour une moto de loisir n'est ni modeste ni nécessaire à la vie courante. Article 1415 : engagés, les biens propres de Monsieur et ses revenus. Hors d'atteinte : les biens communs — dont la maison — et les biens propres de Madame.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Ne jamais répondre « le conjoint est engagé » sans préciser la masse atteinte : c'est ce qui fait perdre la question à l'examen.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s5_B"><div class="ct"><span class="lettre">B</span><span class="tx">Situation 2</span><span class="badge"></span></div><p class="enonce">Même emprunt, mais Mme Ferrand a signé une mention de consentement exprès.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s5_B"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Les biens communs deviennent saisissables. Les biens propres de Madame restent hors d'atteinte.</div>
+<div class="annot" data-z="s5xB"><p>Les biens communs deviennent saisissables, en plus des biens propres et des revenus de Monsieur. Les biens propres de Madame restent hors d'atteinte : elle a consenti, elle n'est pas devenue codébitrice.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Le mot qui compte : <b>exprès</b>. Et la fin de l'article 1415 — le conjoint qui consent n'engage pas ses biens propres — est la partie la plus souvent oubliée.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s5_C"><div class="ct"><span class="lettre">C</span><span class="tx">Situation 3</span><span class="badge"></span></div><p class="enonce">Mme Ferrand emprunte seule 900 € pour remplacer le lave-linge du foyer.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s5_C"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Exception de l'article 220 : M. Ferrand est vraisemblablement tenu solidairement, sans avoir rien signé.</div>
+<div class="annot" data-z="s5xC"><p>L'exception de l'article 220 s'applique vraisemblablement : somme modeste, nécessaire aux besoins de la vie courante. M. Ferrand est alors tenu solidairement sans avoir rien signé.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Et si le couple avait souscrit trois emprunts de ce type dans l'année ? Le cumul ne doit pas être manifestement excessif eu égard au train de vie du ménage : les trois conditions sont cumulatives.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s5_D"><div class="ct"><span class="lettre">D</span><span class="tx">Situation 4</span><span class="badge"></span></div><p class="enonce">M. Ferrand se porte caution du prêt professionnel de son frère.</p>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s5_D"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Sans consentement exprès : biens propres et revenus de Monsieur seulement.</div>
+<div class="annot" data-z="s5xD"><p>L'article 1415 vise le cautionnement au même titre que l'emprunt. S'ajoutent les règles de forme de l'article 2297 — mention apposée par la caution, montant en lettres et en chiffres —, la mise en garde de l'article 2299 sur les capacités du frère, et la réduction de l'article 2300 si l'engagement était disproportionné au patrimoine de M. Ferrand.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>La disproportion entraîne désormais la réduction et non la décharge totale : les manuels antérieurs à 2022 disent le contraire.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div></div>
+  <div class="tab" data-t="memo"><h2 class="ptitre">Fiche mémo de synthèse — thème 6</h2><div class="no-print memo-outils"><button type="button" class="btn discret tout-ouvrir">Tout déplier</button></div><details class="bloc"><summary>6 · Les garanties et les tiers</summary><div class="in annot" data-z="s5m1"><table><tr><th>Article</th><th>Règle</th></tr><tr><td>2297 C. civ.</td><td>Mention apposée par la caution elle-même, à peine de nullité · montant en toutes lettres et en chiffres, les lettres l'emportent · privation des bénéfices de discussion et de division à reconnaître, sinon elle les conserve</td></tr><tr><td>2299 C. civ.</td><td>Mise en garde : engagement du DÉBITEUR inadapté à ses capacités → déchéance à hauteur du préjudice</td></tr><tr><td>2300 C. civ.</td><td>Proportionnalité : disproportion au patrimoine de la CAUTION → RÉDUCTION, et non décharge (depuis le 1er janvier 2022)</td></tr><tr><td>220 C. civ.</td><td>Solidarité ménagère, mais les emprunts en sont exclus — sauf sommes modestes nécessaires à la vie courante, cumul non excessif</td></tr><tr><td>1415 C. civ.</td><td>Communauté : emprunt ou cautionnement n'engage que les biens propres et revenus — sauf consentement exprès du conjoint, qui rend les biens communs saisissables sans engager ses biens propres</td></tr></table><p>Sûretés en crédit conso : gage (véhicule) et nantissement. L'hypothèque relève du crédit immobilier. Assurance emprunteur : facultative en droit, libre choix depuis Lagarde ; exigée → entre dans le TAEG. Hamon, Bourquin et Lemoine visent le crédit immobilier : ne pas les transposer.</p></div></details></div>
+  <div class="tab" data-t="moi"><h2 class="ptitre">Mes notes</h2>
+    <div class="zone notes"><textarea data-k="s5_notes" placeholder="Vos notes libres sur cette séquence : ce que vous retenez, vos questions, vos exemples tirés de votre pratique…"></textarea></div>
+    <div class="photos" data-k="s5_photos"></div>
+    <h3>Les points clés — cochez ce que vous savez expliquer</h3><div class="exam"><label><input type="checkbox" data-k="s5_ex1"><span class="q">Article 2297 : la mention manuscrite, les lettres l'emportent sur les chiffres.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s5_ex2"><span class="q">2299 regarde les capacités du débiteur ; 2300 regarde le patrimoine de la caution — et entraîne la réduction, non la décharge.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s5_ex3"><span class="q">Article 220 : les emprunts sont exclus de la solidarité, sauf sommes modestes nécessaires à la vie courante.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s5_ex4"><span class="q">Article 1415 : le conjoint qui consent n'engage pas ses biens propres — toujours dire quelle masse est atteinte.</span><span class="etat"></span></label></div></div>
+  <div class="suiv"><a class="btn discret" href="#s4">← Séquence 4</a><a class="btn plein" href="#s6">Séquence 6 →</a></div>
+</section>
+
+<section class="page" id="p-s6" data-seq="s6">
+  <div class="bandeau"><div class="k">Séquence 6</div><h1>Constitution du dossier et cas fil rouge</h1></div>
+  <div class="onglets" role="tablist"><button type="button" data-t="cours">Le cours</button><button type="button" data-t="exo">Mise en situation</button><button type="button" data-t="memo">Fiche mémo</button><button type="button" data-t="moi">Mes notes</button></div>
+  <div class="tab" data-t="cours"><h2 class="ptitre">Le cours</h2><p class="aide-annot no-print">Sélectionnez un passage pour le surligner ou y ajouter une note. Cliquez sur un passage surligné pour le modifier.</p><article class="carte-cours" id="s6c1"><header class="ch"><div class="kick">Vérifier la solvabilité</div><h3>Avant de conclure, à partir d'un nombre suffisant d'informations</h3></header><div class="annot" data-z="s6c1"><p>Avant de conclure le contrat de crédit, le prêteur vérifie la solvabilité de l'emprunteur à partir d'un nombre suffisant d'informations, y compris des informations fournies par ce dernier à sa demande.</p><ul><li><b>« Avant de conclure »</b> : l'obligation est précontractuelle, elle ne se rattrape pas.</li><li><b>« Un nombre suffisant »</b> : pas de liste fermée, mais une exigence de qualité de l'analyse.</li><li><b>« Y compris celles fournies par l'emprunteur »</b> : ses déclarations comptent, elles ne suffisent pas.</li></ul><div class="encadre "><div class="tt">Deux volets indissociables</div>L'examen des ressources, des charges et des crédits en cours ; et la consultation du fichier des incidents, dont la preuve pèse sur l'établissement prêteur.</div></div></article><article class="carte-cours" id="s6c2"><header class="ch"><div class="kick">Les pièces et les deux fiches</div><h3>Ne jamais confondre la FIPEN et la fiche de solvabilité</h3></header><div class="annot" data-z="s6c2"><p><b>Identification :</b> pièce d'identité en cours de validité, justificatif de domicile. <b>Capacité de remboursement :</b> justificatifs de revenus, relevé de compte, état des crédits en cours. <b>Pièces de l'opération :</b> offre et échéancier, bordereau de rétractation, mandat, documents de garantie et d'assurance. La liste des pièces n'est pas une liste légale : le texte impose « un nombre suffisant d'informations » sans dresser de catalogue.</p><div class="deux"><div><b class="tt">La FIPEN</b>Du professionnel vers le client. Elle informe et permet de comparer. Remise en temps utile, sur support durable choisi. Non signée.</div><div><b class="tt">La fiche d'informations relative à la solvabilité</b>Du client vers le professionnel. Elle renseigne. Due lorsque l'opération est conclue sur le lieu de vente ou à distance. Ressources, charges, prêts en cours. Signée par l'emprunteur — ou son contenu confirmé par voie électronique —, avec une déclaration certifiant sur l'honneur l'exactitude des informations. Au-delà d'un seuil réglementaire, aujourd'hui de 3 000 €, elle doit être corroborée par des pièces justificatives.</div></div></div></article><article class="carte-cours" id="s6c3"><header class="ch"><div class="kick">Tracer</div><h3>Ce qui n'est pas tracé n'a pas eu lieu</h3></header><div class="annot" data-z="s6c3"><p>Quatre éléments doivent être traçables : la consultation du fichier avec sa date, la remise de l'information précontractuelle avec sa date et son support, les explications adéquates fournies, et la mise en garde lorsqu'elle était due. Les pièces sont conservées pendant la durée du contrat.</p><div class="deux"><div><b class="tt">Deux mises en garde à ne pas confondre</b>Celle due à l'emprunteur, lorsque l'opération présente un risque au regard de sa situation ; celle due à la caution, lorsque l'engagement du débiteur est inadapté à ses capacités.</div><div><b class="tt">La sanction</b>Défaut de vérification : déchéance du droit aux intérêts, en totalité ou dans la proportion fixée par le juge. Les décisions ne reprochent pas au prêteur de n'avoir rien fait : elles constatent qu'il « ne justifie pas » l'avoir fait.</div></div></div></article><article class="carte-cours" id="s6c4"><header class="ch"><div class="kick">La méthode</div><h3>La séquence en sept étapes</h3></header><div class="annot" data-z="s6c4"><table><tr><th>N°</th><th>Étape</th><th>La question déterminante</th></tr><tr><td>1</td><td>Qualifier</td><td>Relève-t-elle du régime ? À quelle date le contrat est-il conclu ?</td></tr><tr><td>2</td><td>Choisir la forme</td><td>Achat déterminé ? Ponctuel ou récurrent ? Propriété ou usage ? Décalage ou financement ?</td></tr><tr><td>3</td><td>Informer</td><td>FIPEN en temps utile, support choisi, explications adéquates, rappel de rétractation</td></tr><tr><td>4</td><td>Analyser</td><td>Pièces, fiche de solvabilité signée, fichier consulté et daté, FIBEN écarté</td></tr><tr><td>5</td><td>Chiffrer</td><td>TAEG assurance comprise si exigée, coût total, montant total dû, usure</td></tr><tr><td>6</td><td>Examiner les tiers</td><td>Caution, assurance, conjoint — engagé sur quel patrimoine ?</td></tr><tr><td>7</td><td>Décider et tracer</td><td>Mise en garde si risque, motivation par le dossier, conservation</td></tr></table><div class="encadre "><div class="tt">À retenir</div>Si vous savez dérouler cette séquence sur un cas qu'on vous soumet, vous avez la journée.</div></div></article></div>
+  <div class="tab" data-t="exo"><h2 class="ptitre">Mise en situation n° 6</h2><div class="exo-barre no-print"><span class="exo-etat"></span><button type="button" class="btn discret refaire" data-seq="s6">↻ Refaire l'exercice</button></div><div class="mes-tete"><div class="k">Mise en situation n° 6</div><div class="h">Le cas fil rouge — dossier complet</div></div><div class="consigne"><div class="tt">Consigne</div><p>Mme Ollivier, 38 ans, salariée, mariée sous le régime légal, se présente en magasin pour financer une cuisine équipée commandée le jour même chez le vendeur, pour 9 400 €. Elle souhaite une mensualité « autour de 200 € ». Revenus nets 2 150 € · loyer 720 € · un crédit auto en cours, 210 € par mois pendant encore 26 mois · un incident de remboursement non régularisé apparaît lors de la consultation du fichier. Son époux n'est pas coemprunteur. Le vendeur propose un crédit renouvelable adossé à la carte du magasin, assorti d'une assurance « facultative » de 9 € par mois — dont il précise oralement qu'elle « conditionne l'accord ».</p></div><div class="cas" data-case="s6_1"><div class="ct"><span class="lettre">1</span><span class="tx">Question 1 — Déroulez les sept étapes sur ce dossier</span><span class="badge"></span></div>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s6_1"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Qualifier — choisir la forme — informer — analyser — chiffrer — examiner les tiers — décider et tracer.</div>
+<div class="annot" data-z="s6x1"><ol class='num'><li><b>Qualifier :</b> opération dans le champ, emprunteuse consommatrice, montant dans les bornes.</li><li><b>Forme :</b> achat déterminé chez un vendeur identifié, le crédit affecté s'impose.</li><li><b>Informer :</b> FIPEN en temps utile sur support durable choisi, explications adéquates, et rappel du droit de rétractation entre J+1 et J+7 puisque l'opération est conclue en magasin.</li><li><b>Analyser :</b> pièces, fiche de solvabilité signée, fichier consulté et daté.</li><li><b>Chiffrer :</b> TAEG incluant l'assurance, coût total, montant total dû, contrôle de l'usure sur la tranche supérieure à 6 000 €.</li><li><b>Tiers :</b> époux non engagé.</li><li><b>Décider et tracer.</b></li></ol><div class="retenir"><div class="tt">Pour bien retenir</div><p>Si vous savez dérouler cette séquence sur un cas qu'on vous soumet, vous avez la journée.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s6_2"><div class="ct"><span class="lettre">2</span><span class="tx">Question 2 — Identifiez les manquements du vendeur</span><span class="badge"></span></div>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s6_2"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Quatre manquements.</div>
+<div class="annot" data-z="s6x2"><ul><li>Le crédit renouvelable est inadapté à un achat déterminé, et l'achat dépassant 1 000 € sur le lieu de vente, une proposition de crédit amortissable comparable doit accompagner l'offre.</li><li>L'assurance dite facultative conditionne en fait l'accord : elle est obligatoire, et son coût — 9 € par mois — doit entrer dans le TAEG.</li><li>Le devoir de mise en garde est dû : revenus 2 150 €, charges actuelles 930 € (loyer 720 € + crédit auto 210 €) ; une mensualité de 200 € porterait les charges à 1 130 €, soit plus de la moitié des revenus.</li><li>Enfin, le risque d'annoncer une interdiction de crédit qui n'existe pas.</li></ul><div class="retenir"><div class="tt">Pour bien retenir</div><p>Posez le calcul de charge vous-même : 930 € de charges actuelles sur 2 150 € de revenus, portées à 1 130 €, soit environ 53 %.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s6_3"><div class="ct"><span class="lettre">3</span><span class="tx">Question 3 — Que dites-vous à la cliente au sujet de l'incident au fichier ?</span><span class="badge"></span></div>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s6_3"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">L'inscription pèse dans l'analyse mais n'interdit rien légalement ; la régularisation entraîne la radiation anticipée.</div>
+<div class="annot" data-z="s6x3"><p>L'inscription pèse dans l'analyse de solvabilité mais n'interdit rien légalement, et la régularisation de sa dette entraînerait la radiation anticipée, permettant de réexaminer sa demande.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Ne jamais lui dire qu'elle est « interdite de crédit » : le FICP n'interdit rien.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s6_4"><div class="ct"><span class="lettre">4</span><span class="tx">Question 4 — Son époux est-il engagé ? Sur quels biens ?</span><span class="badge"></span></div>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s6_4"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Non.</div>
+<div class="annot" data-z="s6x4"><p>S'agissant d'un emprunt, l'article 220 exclut la solidarité et l'exception ne joue pas à 9 400 €. Article 1415 : elle n'engage que ses biens propres et ses revenus ; les biens communs sont hors d'atteinte, faute de consentement exprès de son époux.</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Toujours répondre en masses : biens propres, revenus, biens communs.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div><div class="cas" data-case="s6_5"><div class="ct"><span class="lettre">5</span><span class="tx">Question 5 — Rédigez la décision et sa motivation, en deux phrases maximum</span><span class="badge"></span></div>
+<div class="zone"><label class="lab">Votre réponse</label><textarea class="rep" data-k="s6_5"></textarea></div><div class="actions"><button type="button" class="btn plein valider">Valider ma réponse et voir le corrigé</button></div>
+<div class="corrige"><div class="ra">Réponse attendue</div><div class="rh">Un modèle de rédaction :</div>
+<div class="annot" data-z="s6x5"><p>« La demande est réexaminée sur la base d'un crédit affecté, assorti d'un TAEG intégrant le coût de l'assurance exigée. En l'état, l'incident de remboursement non régularisé et une charge de remboursement portant les charges à plus de la moitié des revenus conduisent à une mise en garde ; la régularisation de l'arriéré permettrait un nouvel examen. »</p><div class="retenir"><div class="tt">Pour bien retenir</div><p>Ce qui n'est pas tracé n'a pas eu lieu : la motivation écrite est la preuve de la mise en garde.</p></div></div><div class="auto"><span>Mon auto-évaluation :</span><button type="button" data-v="ok">J'avais trouvé</button><button type="button" data-v="partiel">En partie</button><button type="button" data-v="ko">À retravailler</button></div></div></div></div>
+  <div class="tab" data-t="memo"><h2 class="ptitre">Fiche mémo de synthèse — thème 7</h2><div class="no-print memo-outils"><button type="button" class="btn discret tout-ouvrir">Tout déplier</button></div><details class="bloc"><summary>7 · La constitution du dossier</summary><div class="in annot" data-z="s6m1"><div class="deux"><div><b class="tt">FIPEN</b>Du professionnel vers le client. Elle informe et permet de comparer. Remise en temps utile, sur support durable choisi. Non signée.</div><div><b class="tt">Fiche de solvabilité</b>Du client vers le professionnel. Elle renseigne. Due sur le lieu de vente ou à distance. Ressources, charges, prêts en cours. SIGNÉE, avec déclaration sur l'honneur d'exactitude.</div></div><p>Vérification de la solvabilité avant de conclure, à partir d'un nombre suffisant d'informations, y compris celles fournies par l'emprunteur — elles comptent, elles ne suffisent pas. Au-delà de 3 000 €, justificatifs exigés. Consultation du fichier obligatoire.</p><div class="encadre"><div class="tt">Ce qui n'est pas tracé n'a pas eu lieu</div>À tracer : consultation du fichier avec sa date · remise de l'information précontractuelle avec date et support · explications adéquates · mise en garde. Pièces conservées pendant la durée du contrat. Sanction : déchéance du droit aux intérêts, en totalité ou dans la proportion fixée par le juge. La charge de la preuve pèse sur le professionnel.</div><table><tr><th>N°</th><th>Étape</th><th>La question déterminante</th></tr><tr><td>1</td><td>Qualifier</td><td>Relève-t-elle du régime ? À quelle date le contrat est-il conclu ?</td></tr><tr><td>2</td><td>Choisir la forme</td><td>Achat déterminé ? Ponctuel ou récurrent ? Propriété ou usage ? Décalage ou financement ?</td></tr><tr><td>3</td><td>Informer</td><td>FIPEN en temps utile, support choisi, explications adéquates, rappel de rétractation</td></tr><tr><td>4</td><td>Analyser</td><td>Pièces, fiche de solvabilité signée, fichier consulté et daté, FIBEN écarté</td></tr><tr><td>5</td><td>Chiffrer</td><td>TAEG assurance comprise si exigée, coût total, montant total dû, usure</td></tr><tr><td>6</td><td>Examiner les tiers</td><td>Caution, assurance, conjoint — engagé sur quel patrimoine ?</td></tr><tr><td>7</td><td>Décider et tracer</td><td>Mise en garde si risque, motivation par le dossier, conservation</td></tr></table></div></details></div>
+  <div class="tab" data-t="moi"><h2 class="ptitre">Mes notes</h2>
+    <div class="zone notes"><textarea data-k="s6_notes" placeholder="Vos notes libres sur cette séquence : ce que vous retenez, vos questions, vos exemples tirés de votre pratique…"></textarea></div>
+    <div class="photos" data-k="s6_photos"></div>
+    <h3>Les points clés — cochez ce que vous savez expliquer</h3><div class="exam"><label><input type="checkbox" data-k="s6_ex1"><span class="q">FIPEN et fiche de solvabilité : sens, contenu, signature.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s6_ex2"><span class="q">La vérification de la solvabilité : avant de conclure, nombre suffisant d'informations, fichier consulté.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s6_ex3"><span class="q">Les quatre éléments à tracer, et la déchéance du droit aux intérêts.</span><span class="etat"></span></label><label><input type="checkbox" data-k="s6_ex4"><span class="q">La séquence en sept étapes.</span><span class="etat"></span></label></div></div>
+  <div class="suiv"><a class="btn discret" href="#s5">← Séquence 5</a><a class="btn plein" href="#bilan">Mon bilan →</a></div>
+</section>
+
+<section class="page" id="p-annotations">
+  <div class="bandeau"><div class="k">Toute la journée</div><h1>Mes annotations</h1><div class="s">Vos passages surlignés et vos notes, séquence par séquence</div></div>
+  <div class="liste-annot" id="listeAnnot"></div>
+</section>
+
+<section class="page" id="p-bilan">
+  <div class="bandeau"><div class="k">Toute la journée</div><h1>Mon bilan de révision</h1><div class="s">Où vous en êtes, et ce qu'il vous reste à retravailler</div></div>
+  <div class="bilan-grille" id="bilanGrille"></div>
+  <h2><span class="pastille">À reprendre</span> Ce qu'il vous reste à retravailler</h2>
+  <div class="carte" id="aRevoir"></div>
+  <h2><span class="pastille">Synthèse</span> Les six phrases à retenir</h2>
+  <div class="carte synthese annot" data-z="bilanSynth"><ol><li>La qualification se déduit du texte, jamais de la ressemblance. Se tromper de régime, c'est se tromper sur tout le reste.</li><li>Partir du besoin exprimé, jamais du produit. L'inverse engage votre responsabilité : explications adéquates et devoir de mise en garde.</li><li>Le FICP n'interdit rien. Le FCC interdit les chèques. FIBEN est interdit d'usage. De quel fichier parle-t-on ?</li><li>Le TAEG compare. Il ne classe pas. Dès que les durées diffèrent, c'est le coût total qui tranche.</li><li>Ne jamais répondre « il est engagé » sans dire sur quel patrimoine.</li><li>Ce qui n'est pas tracé n'a pas eu lieu.</li></ol></div>
+  <h2><span class="pastille">Moi</span> Ce que je retiens de la journée</h2>
+  <div class="zone notes"><textarea data-k="bilan_retiens" placeholder="Les trois idées que vous retenez, et la question que vous voulez poser à votre formateur…"></textarea></div>
+  <h2><span class="pastille">Conserver</span> Garder mon travail</h2>
+  <div class="carte">
+    <p><b>Télécharger ma sauvegarde</b> : un petit fichier que vous rechargez plus tard, ici ou sur un autre ordinateur, avec « Reprendre une sauvegarde ». Il contient tout : réponses, corrigés validés, auto-évaluations, surlignages, notes et photos.</p>
+    <p><b>Enregistrer en PDF</b> : la fenêtre d'impression s'ouvre ; choisissez « Enregistrer au format PDF » comme imprimante. Le PDF reprend le cours avec vos surlignages et vos notes, vos réponses et les corrigés des exercices validés.</p>
+    <div class="suiv" style="margin-top:12px;justify-content:flex-start"><button class="btn" type="button" data-act="export">⬇ Télécharger ma sauvegarde</button><button class="btn plein" type="button" data-act="print">Enregistrer en PDF</button></div>
+  </div>
+</section>
+
+<footer class="pied">TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A</footer>
+</main>
+
+<div id="hlBar" role="toolbar" aria-label="Surligner">
+  <button type="button" class="sw c1" data-c="1" title="Surligner en jaune"></button>
+  <button type="button" class="sw c2" data-c="2" title="Surligner en vert"></button>
+  <button type="button" class="sw c3" data-c="3" title="Surligner en rose"></button>
+  <button type="button" class="sw c4" data-c="4" title="Surligner en bleu"></button>
+  <button type="button" class="nt" data-c="note" title="Surligner et ajouter une note">✎ Note</button>
+</div>
+<div id="hlPop">
+  <div class="ex"></div>
+  <textarea placeholder="Votre note sur ce passage…"></textarea>
+  <div class="row">
+    <span class="sw c1" data-c="1"></span><span class="sw c2" data-c="2"></span><span class="sw c3" data-c="3"></span><span class="sw c4" data-c="4"></span>
+    <button type="button" class="sup">Retirer</button>
+    <button type="button" class="fermer">OK</button>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var CLE="tmk_iobsp_b2_j3_revision_v1", LIVRET="IOBSP-B2-J3-REVISION";
+var SEQS=["s1", "s2", "s3", "s4", "s5", "s6"];
+var TITRES={"s1": "Qualifier et informer", "s2": "Les formes de crédit", "s3": "L'encadrement et les fichiers", "s4": "Les caractéristiques financières", "s5": "Les garanties et les tiers", "s6": "La constitution du dossier"};
+var ONGLETS={cours:"Le cours",exo:"Mise en situation",memo:"Fiche mémo",moi:"Mes notes"};
+function neuf(){return {v:1,champs:{},valide:{},auto:{},essais:{},hl:[],photos:{},maj:null};}
+var etat=neuf(), stockageOK=true;
+
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove("on");},2600);}
+function seqDe(z){var m=/^(s\d)/.exec(z);return m?m[1]:"bilan";}
+
+/* ================= Construction ================= */
+$$(".photos").forEach(function(p){
+  p.innerHTML='<div class="tt">📷 Joindre une photo de mon travail</div><div class="aide">Photo d\'une feuille, d\'un schéma, d\'une page de cahier. Elle reste dans votre livret et votre sauvegarde ; elle n\'est envoyée à personne. 4 photos au plus.</div><label class="btn no-print" style="display:inline-block">Choisir une photo<input type="file" accept="image/*" hidden></label><div class="vignettes"></div>';
+  p.querySelector("input").addEventListener("change",function(e){ajouterPhotos(p.dataset.k,e.target.files);e.target.value="";});
+});
+$$("textarea").forEach(function(t){if(t.closest("#hlPop"))return;var c=document.createElement("div");c.className="print-copy";t.parentNode.insertBefore(c,t.nextSibling);});
+
+/* ================= Sauvegarde ================= */
+function lire(){
+  try{var s=localStorage.getItem(CLE);if(s){var o=JSON.parse(s);if(o&&o.champs)etat=Object.assign(neuf(),o);}}
+  catch(e){stockageOK=false;}
+}
+function sauver(){
+  etat.maj=new Date().toISOString();
+  try{localStorage.setItem(CLE,JSON.stringify(etat));stockageOK=true;majStatut();}
+  catch(e){stockageOK=false;majStatut(true);}
+}
+function majStatut(quota){
+  var s=$("#status");
+  if(quota){s.innerHTML='<span style="color:#B3261E">Espace du navigateur plein : retirez une photo ou téléchargez votre sauvegarde.</span>';return;}
+  if(!stockageOK){s.innerHTML='<span style="color:#B3261E">Ce navigateur n\'enregistre pas automatiquement : pensez à télécharger votre sauvegarde.</span>';return;}
+  if(etat.maj){var d=new Date(etat.maj);s.innerHTML='<b>✓ Enregistré</b> dans ce navigateur à '+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})+'.';}
+}
+var timer;function planifier(){clearTimeout(timer);timer=setTimeout(sauver,400);}
+
+function remplir(){
+  $$("[data-k]").forEach(function(el){
+    if(el.classList.contains("photos"))return;
+    var v=etat.champs[el.dataset.k];
+    if(el.type==="checkbox")el.checked=!!v; else el.value=(v==null?"":v);
+  });
+  $$(".photos").forEach(function(p){rendrePhotos(p.dataset.k);});
+  $$(".cas").forEach(majCas);
+  rendreTousHL();
+  majTout();
+}
+function surSaisie(e){
+  var el=e.target;if(!el.dataset||!el.dataset.k||el.type==="file")return;
+  etat.champs[el.dataset.k]=(el.type==="checkbox")?el.checked:el.value;
+  majTout();planifier();
+}
+document.addEventListener("input",surSaisie);
+document.addEventListener("change",surSaisie);
+
+/* ================= Photos ================= */
+function ajouterPhotos(k,files){
+  var liste=etat.photos[k]=etat.photos[k]||[];
+  Array.prototype.slice.call(files).forEach(function(f){
+    if(liste.length>=4){toast("4 photos au plus.");return;}
+    if(!/^image\//.test(f.type)){toast("Seules les images sont acceptées.");return;}
+    var r=new FileReader();
+    r.onload=function(){var img=new Image();img.onload=function(){
+      var max=1400,sc=Math.min(1,max/Math.max(img.width,img.height));
+      var cv=document.createElement("canvas");cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);
+      cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);
+      liste.push({nom:f.name,data:cv.toDataURL("image/jpeg",0.72)});rendrePhotos(k);sauver();
+    };img.src=r.result;};
+    r.readAsDataURL(f);
+  });
+}
+function rendrePhotos(k){
+  var p=$('.photos[data-k="'+k+'"]');if(!p)return;
+  var box=p.querySelector(".vignettes");box.innerHTML="";
+  (etat.photos[k]||[]).forEach(function(ph,i){
+    var fig=document.createElement("figure"),im=document.createElement("img"),b=document.createElement("button");
+    im.src=ph.data;im.alt=ph.nom||"photo";b.type="button";b.textContent="✕";b.title="Retirer cette photo";
+    b.onclick=function(){etat.photos[k].splice(i,1);rendrePhotos(k);sauver();};
+    fig.appendChild(im);fig.appendChild(b);box.appendChild(fig);
+  });
+  p.classList.toggle("vide",!(etat.photos[k]||[]).length);
+}
+
+/* ================= Exercices ================= */
+function majCas(c){
+  var k=c.dataset.case,v=!!etat.valide[k],a=etat.auto[k];
+  c.classList.toggle("valide",v);
+  $$(".rep",c).forEach(function(f){f.disabled=v;});
+  $$(".auto button",c).forEach(function(b){b.classList.toggle("on",b.dataset.v===a);});
+  var bd=c.querySelector(".badge");
+  bd.className="badge"+(a?" "+a:(v?" val":""));
+  bd.textContent=a==="ok"?"✓ J'avais trouvé":a==="partiel"?"◐ En partie":a==="ko"?"✗ À retravailler":v?"Corrigé affiché":"";
+  $$("tr[data-attendu]",c).forEach(function(tr){
+    var att=tr.dataset.attendu,sel=etat.champs[tr.dataset.sel]||"",vd=tr.querySelector(".verdict");
+    if(!v){vd.textContent="";return;}
+    if(att==="En cours"){vd.className="verdict";vd.textContent=sel?"Vous aviez : "+sel:"";return;}
+    var ok=sel===att;vd.className="verdict "+(ok?"bon":"faux");vd.textContent=sel?(ok?"✓ comme vous":"✗ vous aviez : "+sel):"✗ non renseigné";
+  });
+  var sc=c.querySelector(".score");
+  if(sc){var rows=$$("tr[data-attendu]",c).filter(function(tr){return tr.dataset.attendu!=="En cours";});
+    var bons=rows.filter(function(tr){return (etat.champs[tr.dataset.sel]||"")===tr.dataset.attendu;}).length;
+    sc.textContent=v?("Vos classements : "+bons+" bon"+(bons>1?"s":"")+" sur "+rows.length+"."):"";}
+}
+function majExoBarre(seq){
+  var page=$("#p-"+seq),cas=$$(".cas",page),v=cas.filter(function(c){return etat.valide[c.dataset.case];}).length;
+  var n=etat.essais[seq]||0;
+  page.querySelector(".exo-etat").textContent="Questions corrigées : "+v+" sur "+cas.length+(n?" · exercice recommencé "+n+" fois":"");
+}
+$$(".cas").forEach(function(c){
+  c.querySelector(".valider").addEventListener("click",function(){
+    var vides=$$(".rep",c).filter(function(f){return !String(f.value||"").trim();});
+    if(vides.length===$$(".rep",c).length){toast("Rédigez d'abord votre réponse.");return;}
+    if(vides.length&&!confirm("Une partie de votre réponse est vide. Valider quand même ? Vos réponses seront figées."))return;
+    etat.valide[c.dataset.case]=true;majCas(c);majTout();sauver();
+    c.querySelector(".corrige").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  $$(".auto button",c).forEach(function(b){b.addEventListener("click",function(){
+    etat.auto[c.dataset.case]=b.dataset.v;majCas(c);majTout();sauver();
+  });});
+});
+$$(".refaire").forEach(function(b){b.addEventListener("click",function(){
+  var seq=b.dataset.seq;
+  if(!confirm("Refaire l'exercice ? Vos réponses et vos auto-évaluations de cette mise en situation seront effacées. Vos surlignages dans les corrigés sont conservés."))return;
+  $$("#p-"+seq+" .cas").forEach(function(c){
+    var k=c.dataset.case;delete etat.valide[k];delete etat.auto[k];
+    $$(".rep",c).forEach(function(f){delete etat.champs[f.dataset.k];f.value="";});
+    majCas(c);
+  });
+  etat.essais[seq]=(etat.essais[seq]||0)+1;majTout();sauver();window.scrollTo(0,0);toast("Exercice remis à zéro.");
+});});
+
+/* ================= Surlignage et notes ================= */
+function textNodes(zone){
+  var w=document.createTreeWalker(zone,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+    var p=n.parentNode;
+    if(p.closest(".outil,textarea,select,button,input,.no-annot"))return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT;}});
+  var out=[],n;while((n=w.nextNode()))out.push(n);return out;
+}
+function offsetDe(zone,cont,off){
+  var nodes=textNodes(zone),acc=0,r=document.createRange();
+  for(var i=0;i<nodes.length;i++){
+    var t=nodes[i];
+    if(t===cont)return acc+off;
+    if(cont.nodeType!==3){r.setStart(cont,off);r.collapse(true);try{if(r.comparePoint(t,0)>=0)return acc;}catch(e){}}
+    acc+=t.data.length;
+  }
+  return acc;
+}
+function appliquer(zone,h){
+  var nodes=textNodes(zone),acc=0;
+  nodes.forEach(function(t){
+    var len=t.data.length,a=Math.max(h.s,acc),b=Math.min(h.e,acc+len);
+    if(b>a&&t.data.slice(a-acc,b-acc).trim().length){
+      var mid=t;if(a-acc>0)mid=t.splitText(a-acc);
+      if(b-a<mid.data.length)mid.splitText(b-a);
+      var m=document.createElement("mark");m.className="hl c"+h.c;m.dataset.h=h.id;
+      if(h.note)m.setAttribute("data-note",h.note);
+      mid.parentNode.insertBefore(m,mid);m.appendChild(mid);
+    }
+    acc+=len;
+  });
+}
+function rendreZone(zone){
+  $$("mark.hl",zone).forEach(function(m){var p=m.parentNode;while(m.firstChild)p.insertBefore(m.firstChild,m);p.removeChild(m);});
+  zone.normalize();
+  etat.hl.filter(function(h){return h.z===zone.dataset.z;}).sort(function(a,b){return a.s-b.s;}).forEach(function(h){appliquer(zone,h);});
+}
+function rendreTousHL(){$$(".annot").forEach(rendreZone);majAnnotations();}
+
+var bar=$("#hlBar"),pop=$("#hlPop"),selCourante=null,hlOuvert=null;
+function cacherBar(){bar.classList.remove("on");selCourante=null;}
+function analyserSelection(){
+  var sel=window.getSelection();
+  if(!sel||sel.isCollapsed||!sel.rangeCount){cacherBar();return;}
+  var r=sel.getRangeAt(0);
+  var za=(r.startContainer.nodeType===3?r.startContainer.parentNode:r.startContainer).closest(".annot");
+  var zb=(r.endContainer.nodeType===3?r.endContainer.parentNode:r.endContainer).closest(".annot");
+  if(!za||za!==zb||!za.offsetParent){cacherBar();return;}
+  var s=offsetDe(za,r.startContainer,r.startOffset),e=offsetDe(za,r.endContainer,r.endOffset);
+  var txt=(function(){var nodes=textNodes(za),acc=0,out="",last=null;nodes.forEach(function(t){var a=Math.max(s,acc),b=Math.min(e,acc+t.data.length);
+    if(b>a){var bl=t.parentNode.closest("td,th,li,p,div");if(last&&bl!==last&&!/\s$/.test(out))out+=" ";out+=t.data.slice(a-acc,b-acc);last=bl;}acc+=t.data.length;});return out.replace(/\s+/g," ").trim();})();
+  if(e<=s||!txt){cacherBar();return;}
+  selCourante={z:za.dataset.z,s:s,e:e,txt:txt.slice(0,400)};
+  var rc=r.getBoundingClientRect();
+  bar.classList.add("on");
+  var x=rc.left+window.scrollX+rc.width/2-bar.offsetWidth/2;
+  bar.style.left=Math.max(8,Math.min(x,document.documentElement.clientWidth-bar.offsetWidth-8))+"px";
+  bar.style.top=(rc.top+window.scrollY-bar.offsetHeight-8)+"px";
+}
+var selTimer;
+document.addEventListener("selectionchange",function(){clearTimeout(selTimer);selTimer=setTimeout(analyserSelection,250);});
+bar.addEventListener("mousedown",function(e){e.preventDefault();});
+$$("#hlBar button").forEach(function(b){b.addEventListener("click",function(ev){
+  ev.stopPropagation();
+  if(!selCourante)return;
+  var note=b.dataset.c==="note";
+  var h={id:"h"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),z:selCourante.z,s:selCourante.s,e:selCourante.e,c:note?1:+b.dataset.c,txt:selCourante.txt,note:"",d:new Date().toISOString()};
+  etat.hl.push(h);
+  var zone=$('.annot[data-z="'+h.z+'"]');rendreZone(zone);
+  window.getSelection().removeAllRanges();cacherBar();sauver();majAnnotations();majTout();
+  if(note){var m=$('mark.hl[data-h="'+h.id+'"]');if(m)ouvrirPop(h,m);}
+});});
+function ouvrirPop(h,m){
+  hlOuvert=h;
+  pop.querySelector(".ex").textContent="« "+h.txt+" »";
+  pop.querySelector("textarea").value=h.note||"";
+  $$("#hlPop .sw").forEach(function(s){s.classList.toggle("on",+s.dataset.c===h.c);});
+  pop.classList.add("on");
+  var rc=m.getBoundingClientRect();
+  var x=rc.left+window.scrollX;pop.style.left=Math.max(8,Math.min(x,document.documentElement.clientWidth-pop.offsetWidth-8))+"px";
+  pop.style.top=(rc.bottom+window.scrollY+6)+"px";
+  setTimeout(function(){pop.querySelector("textarea").focus();},30);
+}
+function fermerPop(){
+  if(!hlOuvert)return;
+  pop.classList.remove("on");
+  var zone=$('.annot[data-z="'+hlOuvert.z+'"]');if(zone)rendreZone(zone);
+  hlOuvert=null;sauver();majAnnotations();
+}
+document.addEventListener("click",function(e){
+  var m=e.target.closest&&e.target.closest("mark.hl");
+  if(m&&!window.getSelection().toString()){
+    var h=etat.hl.filter(function(x){return x.id===m.dataset.h;})[0];
+    if(h){if(hlOuvert&&hlOuvert!==h)fermerPop();ouvrirPop(h,m);e.stopPropagation();return;}
+  }
+  if(hlOuvert&&!pop.contains(e.target))fermerPop();
+});
+pop.querySelector("textarea").addEventListener("input",function(e){e.stopPropagation();if(hlOuvert){hlOuvert.note=this.value;planifier();}});
+$$("#hlPop .sw").forEach(function(s){s.addEventListener("click",function(ev){ev.stopPropagation();
+  if(!hlOuvert)return;hlOuvert.c=+s.dataset.c;$$("#hlPop .sw").forEach(function(x){x.classList.toggle("on",x===s);});
+  var zone=$('.annot[data-z="'+hlOuvert.z+'"]');rendreZone(zone);sauver();majAnnotations();
+});});
+pop.querySelector(".sup").addEventListener("click",function(){
+  if(!hlOuvert)return;var z=hlOuvert.z;
+  etat.hl=etat.hl.filter(function(x){return x!==hlOuvert;});hlOuvert=null;pop.classList.remove("on");
+  rendreZone($('.annot[data-z="'+z+'"]'));sauver();majAnnotations();majTout();
+});
+pop.querySelector(".fermer").addEventListener("click",fermerPop);
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){fermerPop();cacherBar();}});
+
+function ongletDeZone(z){if(/c\d+$/.test(z))return "cours";if(/m\d+$/.test(z))return "memo";if(/x\w+$/.test(z))return "exo";return null;}
+function majAnnotations(){
+  var box=$("#listeAnnot"),html="",n=etat.hl.length;
+  $("#nbAnnot").textContent=n?n:"";
+  if(!n){box.innerHTML='<p class="vide-msg">Vous n\'avez encore rien surligné. Dans le cours, la fiche mémo ou un corrigé, sélectionnez un passage : une barre apparaît pour le surligner ou y ajouter une note.</p>';return;}
+  var ordre=SEQS.concat(["bilan"]);
+  ordre.forEach(function(seq){
+    var l=etat.hl.filter(function(h){return seqDe(h.z)===seq;});
+    if(!l.length)return;
+    html+="<h3>"+(seq==="bilan"?"Synthèse de la journée":"Séquence "+seq.slice(1)+" — "+TITRES[seq])+"</h3>";
+    l.sort(function(a,b){return a.z<b.z?-1:a.z>b.z?1:a.s-b.s;}).forEach(function(h){
+      var o=ongletDeZone(h.z);
+      html+='<div class="item c'+h.c+'"><div class="ex">« '+esc(h.txt)+' »</div>'+(h.note?'<div class="nt">✎ '+esc(h.note)+'</div>':'')+
+        '<span class="lien" data-go="'+h.id+'">Voir dans '+(o?("« "+ONGLETS[o]+" »"):"la synthèse")+'</span></div>';
+    });
+  });
+  box.innerHTML=html;
+  $$(".lien",box).forEach(function(a){a.onclick=function(){allerVers(a.dataset.go);};});
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function allerVers(id){
+  var h=etat.hl.filter(function(x){return x.id===id;})[0];if(!h)return;
+  var seq=seqDe(h.z),o=ongletDeZone(h.z);
+  location.hash=seq==="bilan"?"#bilan":"#"+seq+"/"+o;
+  setTimeout(function(){
+    var m=$('mark.hl[data-h="'+id+'"]');if(!m)return;
+    var d=m.closest("details");if(d)d.open=true;
+    m.scrollIntoView({behavior:"smooth",block:"center"});m.classList.add("flash");setTimeout(function(){m.classList.remove("flash");},1800);
+  },120);
+}
+
+/* ================= Progression et bilan ================= */
+function rempli(el){return el.type==="checkbox"?el.checked:String(el.value||"").trim().length>0;}
+function compte(seq){
+  var page=$("#p-"+seq),cas=$$(".cas",page),exs=$$(".exam input",page);
+  var v=cas.filter(function(c){return etat.valide[c.dataset.case];}).length;
+  var au={ok:0,partiel:0,ko:0};cas.forEach(function(c){var a=etat.auto[c.dataset.case];if(a)au[a]++;});
+  var x=exs.filter(rempli).length;
+  var hl=etat.hl.filter(function(h){return seqDe(h.z)===seq;}).length;
+  return {v:v,vt:cas.length,x:x,xt:exs.length,au:au,hl:hl,f:v+x,t:cas.length+exs.length};
+}
+function majTout(){
+  var F=0,T=0,V=0,VT=0,X=0,XT=0;
+  SEQS.forEach(function(s){
+    var c=compte(s);F+=c.f;T+=c.t;V+=c.v;VT+=c.vt;X+=c.x;XT+=c.xt;
+    var pc=c.t?Math.round(100*c.f/c.t):0,el=$('#nav a[data-p="'+s+'"] .p');
+    el.textContent=pc+" %";el.classList.toggle("full",pc===100);
+    majExoBarre(s);
+    var p=$("#p-"+s);
+    p.querySelector('.onglets [data-t="exo"]').innerHTML="Mise en situation<span class='cpt'>"+c.v+"/"+c.vt+"</span>";
+    p.querySelector('.onglets [data-t="moi"]').innerHTML="Mes notes<span class='cpt'>"+c.x+"/"+c.xt+"</span>";
+  });
+  var pct=T?Math.round(100*F/T):0;
+  $("#pctTotal").textContent=pct+" %";$("#barTotal").style.width=pct+"%";
+  $("#detailTotal").textContent=V+"/"+VT+" questions corrigées · "+X+"/"+XT+" points d'examen";
+  $$("textarea").forEach(function(t){t.classList.toggle("rempli",rempli(t));});
+  $$(".exam label").forEach(function(l){l.querySelector(".etat").textContent=l.querySelector("input").checked?"Je sais l'expliquer":"À revoir";});
+  majBilan();
+}
+function majBilan(){
+  var g=$("#bilanGrille");g.innerHTML="";
+  SEQS.forEach(function(s,i){
+    var c=compte(s),pc=c.t?Math.round(100*c.f/c.t):0,d=document.createElement("div");
+    d.innerHTML='<div class="n">Séquence '+(i+1)+'</div><div class="t"></div><div class="mini"><i style="width:'+pc+'%"></i></div><div class="c">'+c.v+'/'+c.vt+' questions corrigées · '+c.x+'/'+c.xt+' points d\'examen<br>Auto-évaluation : '+c.au.ok+' ✓ · '+c.au.partiel+' ◐ · '+c.au.ko+' ✗ · '+c.hl+' annotation'+(c.hl>1?'s':'')+'</div>';
+    d.querySelector(".t").textContent=TITRES[s];g.appendChild(d);
+  });
+  var html="",n=0;
+  SEQS.forEach(function(s,i){
+    var page=$("#p-"+s),items=[];
+    $$(".cas",page).forEach(function(c){
+      var a=etat.auto[c.dataset.case],t=c.querySelector(".ct .tx").textContent;
+      if(a==="ko"||a==="partiel")items.push('<li><b>'+(a==="ko"?"À retravailler":"En partie")+'</b> — mise en situation : '+esc(t)+'</li>');
+      else if(!etat.valide[c.dataset.case])items.push('<li>Pas encore fait — mise en situation : '+esc(t)+'</li>');
+    });
+    $$(".exam label",page).forEach(function(l){if(!l.querySelector("input").checked)items.push("<li>Point d'examen : "+l.querySelector(".q").innerHTML+"</li>");});
+    if(items.length){n+=items.length;html+='<p style="margin:10px 0 4px"><a href="#'+s+'" style="color:#5E1349;font-weight:700">Séquence '+(i+1)+' — '+TITRES[s]+'</a></p><ul>'+items.join("")+'</ul>';}
+  });
+  $("#aRevoir").innerHTML=n?html:"<p><b>Tout est fait, et rien n'est à retravailler.</b> Relisez les fiches mémo la veille de l'épreuve.</p>";
+}
+
+/* ================= Navigation ================= */
+function aller(){
+  var h=(location.hash||"#accueil").slice(1).split("/"),p=h[0],o=h[1];
+  if(!$("#p-"+p))p="accueil";
+  $$(".page").forEach(function(x){x.classList.toggle("on",x.id==="p-"+p);});
+  $$("#nav a").forEach(function(a){a.classList.toggle("on",a.dataset.p===p);});
+  var page=$("#p-"+p);
+  if(page.querySelector(".onglets")){
+    o=ONGLETS[o]?o:(etat.champs["_onglet_"+p]||"cours");
+    $$(".onglets button",page).forEach(function(b){b.classList.toggle("on",b.dataset.t===o);});
+    $$(".tab",page).forEach(function(t){t.classList.toggle("on",t.dataset.t===o);});
+  }
+  document.body.classList.remove("menu");cacherBar();if(hlOuvert)fermerPop();
+  window.scrollTo(0,0);
+}
+$$(".onglets button").forEach(function(b){b.addEventListener("click",function(){
+  var p=b.closest(".page").dataset.seq;etat.champs["_onglet_"+p]=b.dataset.t;planifier();
+  location.hash="#"+p+"/"+b.dataset.t;
+});});
+$$(".tout-ouvrir").forEach(function(b){b.addEventListener("click",function(){
+  var ds=$$("details",b.closest(".tab")),tous=ds.every(function(d){return d.open;});
+  ds.forEach(function(d){d.open=!tous;});b.textContent=tous?"Tout déplier":"Tout replier";
+});});
+window.addEventListener("hashchange",aller);
+$("#menuBtn").onclick=function(){document.body.classList.toggle("menu");};
+
+/* ================= Export, import, effacement ================= */
+function nomFichier(){
+  var n=(etat.champs.identite_nom||"").trim().replace(/[^A-Za-zÀ-ÿ0-9]+/g,"_").replace(/^_|_$/g,"");
+  return "Revision_IOBSP_J3"+(n?"_"+n:"")+"_"+new Date().toISOString().slice(0,10)+".json";
+}
+function exporter(){
+  etat.maj=new Date().toISOString();
+  var blob=new Blob([JSON.stringify(Object.assign({livret:LIVRET},etat))],{type:"application/json"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=nomFichier();
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+  toast("Sauvegarde téléchargée : "+a.download);
+}
+$("#btnExport").onclick=exporter;
+$("#btnImport").onclick=function(){$("#fileImport").click();};
+$("#fileImport").addEventListener("change",function(e){
+  var f=e.target.files[0];if(!f)return;var r=new FileReader();
+  r.onload=function(){
+    try{var o=JSON.parse(r.result);if(o.livret!==LIVRET||!o.champs)throw 0;
+      if(!confirm("Remplacer le contenu actuel du livret par cette sauvegarde ?"))return;
+      delete o.livret;etat=Object.assign(neuf(),o);sauver();remplir();aller();toast("Sauvegarde rechargée.");
+    }catch(err){toast("Ce fichier n'est pas une sauvegarde de ce livret.");}
+  };
+  r.readAsText(f);e.target.value="";
+});
+$("#btnReset").onclick=function(){
+  if(!confirm("Effacer tout votre travail de ce navigateur (réponses, notes, surlignages, photos) ? Téléchargez votre sauvegarde avant si vous voulez le conserver."))return;
+  try{localStorage.removeItem(CLE);}catch(e){}
+  etat=neuf();remplir();$("#status").textContent="Données effacées de ce navigateur.";
+};
+
+/* ================= Impression ================= */
+function preparerImpression(){
+  fermerPop();cacherBar();
+  $$("textarea").forEach(function(t){
+    var c=t.nextElementSibling;if(!c||!c.classList.contains("print-copy"))return;
+    var v=String(t.value||"").trim();c.textContent=v||"(pas de réponse)";c.classList.toggle("vide",!v);
+  });
+  $$(".bloc-print").forEach(function(x){x.remove();});
+  $$("details.bloc").forEach(function(d){
+    var c=document.createElement("div");c.className="bloc-print";
+    var h=document.createElement("h3");h.textContent=d.querySelector("summary").textContent;c.appendChild(h);
+    var corps=d.querySelector(".in").cloneNode(true);
+    $$(".outil",corps).forEach(function(o){o.remove();});
+    $$("[id]",corps).forEach(function(o){o.removeAttribute("id");});
+    c.appendChild(corps);d.parentNode.insertBefore(c,d.nextSibling);
+  });
+  var nom=(etat.champs.identite_nom||"").trim();
+  $("#printNom").textContent=(nom?nom+" · ":"")+"édité le "+new Date().toLocaleDateString("fr-FR");
+}
+window.addEventListener("beforeprint",preparerImpression);
+function imprimer(){preparerImpression();setTimeout(function(){window.print();},50);}
+$("#btnPrint").onclick=imprimer;
+$$("[data-act]").forEach(function(b){b.onclick=function(){b.dataset.act==="print"?imprimer():exporter();};});
+
+/* ================= Outils de la fiche mémo ================= */
+function testerSeuils(){
+  var type=$("#ts_type").value,nb=+$("#ts_nb").value||0,mt=+$("#ts_mt").value||0;
+  var compl=$("#ts_compl").checked,dem=$("#ts_dem").checked,ge=$("#ts_ge").checked,res=$("#ts_res"),ok,msg;
+  var fmt=function(n){return n.toLocaleString("fr-FR");};
+  if(dem){ok=false;msg="<b>Pas de dispense.</b> Le recours au démarchage pour l'intermédiation rend IOBSP, sans considération de seuil ni de caractère complémentaire.";}
+  else if(type==="immo"){ok=false;msg="<b>Pas de dispense.</b> En crédit immobilier, regroupement de crédits et prêt viager hypothécaire, aucun seuil ne joue : une activité habituelle suffit.";}
+  else if(!compl){ok=false;msg="<b>La dispense de l'article R. 519-2, 1° ne s'applique pas.</b> Elle vise seulement l'intermédiation complémentaire aux biens ou services que l'on fournit.";}
+  else if(ge){ok=false;msg="<b>Pas de dispense.</b> À compter du 20 novembre 2026, la dispense ne bénéficie pas aux grandes entreprises pour le crédit à la consommation.";}
+  else if(type==="paiement"){ok=nb<=20;msg=ok?"<b>Dispensé d'immatriculation.</b> "+fmt(nb)+" opération(s) : le seuil de 20 opérations par an n'est pas dépassé.":"<b>Dispense perdue.</b> "+fmt(nb)+" opérations : le seuil de 20 opérations par an est dépassé.";}
+  else{var sN=type==="fract"?1000:20,sM=type==="fract"?500000:200000,dN=nb>sN,dM=mt>sM;ok=!(dN&&dM);
+    msg=(ok?"<b>Dispensé d'immatriculation.</b> ":"<b>Dispense perdue.</b> ")+"Nombre : "+fmt(nb)+(dN?" — dépasse ":" — ne dépasse pas ")+fmt(sN)+". Montant : "+fmt(mt)+" €"+(dM?" — dépasse ":" — ne dépasse pas ")+fmt(sM)+" €. "+(ok?(dN||dM?"Un seul seuil est dépassé : cela ne suffit pas, il faut dépasser les deux.":"Aucun seuil n'est dépassé."):"Les deux seuils sont dépassés.");}
+  msg+='<br><span style="font-size:13px;color:#8A7A85">Appréciation au 1er janvier, sur l\'année civile écoulée ; en cas de franchissement, six mois pour se mettre en conformité. Les seuils ne dispensent que de l\'immatriculation : les quatre critères de l\'article L. 519-1 restent la porte d\'entrée.</span>';
+  res.className="res "+(ok?"oui":"non");res.innerHTML=msg;
+}
+if($("#ts_type")){["ts_type","ts_nb","ts_mt","ts_compl","ts_dem","ts_ge"].forEach(function(id){$("#"+id).addEventListener("input",testerSeuils);$("#"+id).addEventListener("change",testerSeuils);});testerSeuils();}
+var CAT={
+  client:{t:"Courtier — COBSP",l:["Exclusivité : non","Capacité : niveau I (hors activité complémentaire)","RC professionnelle : obligatoire, à son nom","Association agréée : obligatoire","Clientèle propre : oui"]},
+  excl:{t:"Mandataire exclusif — MEOBSP",l:["Exclusivité : oui, par catégorie d'opérations — il doit l'annoncer au client","Capacité : niveau II (hors activité complémentaire)","RC professionnelle : couverte par le mandant (art. L. 519-3-4)","Association agréée : dispensé","Clientèle propre : non"]},
+  nonexcl:{t:"Mandataire non exclusif — MOBSP",l:["Exclusivité : non — il compare les offres de ses mandants, pas le marché","Capacité : niveau I, comme le courtier (point d'examen)","RC professionnelle : couverte par le mandant (art. L. 519-3-4)","Association agréée : dispensé","Clientèle propre : non"]},
+  c:{t:"Mandataire d'intermédiaire — MIOBSP, mandaté par un courtier",l:["Capacité : niveau I","RC professionnelle : couverte par le mandant (art. L. 519-3-4)","Association agréée : obligatoire — le mandataire d'un courtier doit adhérer","Clientèle propre : non"]},
+  mn:{t:"Mandataire d'intermédiaire — MIOBSP, mandaté par un mandataire non exclusif",l:["Capacité : niveau I","RC professionnelle : couverte par le mandant (art. L. 519-3-4)","Association agréée : dispensé","Clientèle propre : non"]},
+  me:{t:"Mandataire d'intermédiaire — MIOBSP, mandaté par un mandataire exclusif",l:["Capacité : niveau II","RC professionnelle : couverte par le mandant (art. L. 519-3-4)","Association agréée : dispensé","Clientèle propre : non"]}
+};
+function afficherCat(k){var c=CAT[k],r=$("#md_res");r.className="res oui";
+  r.innerHTML="<b>"+c.t+"</b><ul style='margin:6px 0 0'>"+c.l.map(function(x){return "<li>"+x+"</li>";}).join("")+"</ul><span style='font-size:13px;color:#8A7A85'>Garantie financière, pour toutes les catégories : dès que des fonds sont confiés, même à titre occasionnel.</span>";}
+$$("#md_q1 button").forEach(function(b){b.onclick=function(){
+  $$("#md_q1 button").forEach(function(x){x.classList.toggle("on",x===b);});$$("#md_q2 button").forEach(function(x){x.classList.remove("on");});
+  if(b.dataset.v==="interm"){$("#md_q2").style.display="flex";var r=$("#md_res");r.className="res";r.textContent="Qui est cet intermédiaire ? C'est lui qui fixe le niveau de capacité et l'obligation d'adhésion.";}
+  else{$("#md_q2").style.display="none";afficherCat(b.dataset.v);}
+};});
+$$("#md_q2 button").forEach(function(b){b.onclick=function(){$$("#md_q2 button").forEach(function(x){x.classList.toggle("on",x===b);});afficherCat(b.dataset.v);};});
+
+/* ================= Démarrage ================= */
+lire();remplir();aller();majStatut();
+})();
+</script>
+</body>
+</html>
