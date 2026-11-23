@@ -319,6 +319,22 @@ mark.hl.flash{outline:3px solid var(--prune);outline-offset:2px}
 
 .corrige .score{font-weight:700;color:var(--prune-f);margin:2px 0 8px}
 .grille.classement td:first-child{width:62%}
+
+.opts{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.opt{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--trame);border-radius:8px;padding:9px 12px;cursor:pointer;font-size:14.5px}
+.opt input{margin-top:3px;accent-color:var(--prune);width:16px;height:16px;flex:0 0 16px}
+.opt span:nth-child(2){flex:1}
+.opt .marque{font-size:12px;font-weight:600;white-space:nowrap}
+.opt.bonne{border-color:var(--ok);background:#EEF7F1}.opt.bonne .marque{color:var(--ok)}
+.opt.faux{border-color:var(--alerte);background:#FCEFEE}.opt.faux .marque{color:var(--alerte)}
+.cas.valide .opt{cursor:default}
+.points{background:#fff;border:1px dashed var(--rose);border-radius:8px;padding:10px 14px;margin-top:10px}
+.points .tt{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--prune)}
+.ref{font-size:12.5px;color:var(--gris-m);margin-top:8px}
+.encadre.verif{background:#FFF6DF;border-left-color:#C9A13B}
+.encadre.verif .tt{color:#7A5600}
+.memo-img img{width:100%;height:auto;border:1px solid var(--trame);border-radius:6px;display:block}
+@media print{.memo-img img{max-height:228mm;width:auto;max-width:100%;margin:0 auto;object-fit:contain}}
 </style>
 </head>
 <body>
@@ -938,7 +954,7 @@ function remplir(){
   $$("[data-k]").forEach(function(el){
     if(el.classList.contains("photos"))return;
     var v=etat.champs[el.dataset.k];
-    if(el.type==="checkbox")el.checked=!!v; else el.value=(v==null?"":v);
+    if(el.type==="checkbox"||el.type==="radio")el.checked=!!v; else el.value=(v==null?"":v);
   });
   $$(".photos").forEach(function(p){rendrePhotos(p.dataset.k);});
   $$(".cas").forEach(majCas);
@@ -947,7 +963,8 @@ function remplir(){
 }
 function surSaisie(e){
   var el=e.target;if(!el.dataset||!el.dataset.k||el.type==="file")return;
-  etat.champs[el.dataset.k]=(el.type==="checkbox")?el.checked:el.value;
+  if(el.type==="radio"){$$('input[type=radio][name="'+el.name+'"]').forEach(function(r){etat.champs[r.dataset.k]=r.checked;});}
+  else etat.champs[el.dataset.k]=(el.type==="checkbox")?el.checked:el.value;
   majTout();planifier();
 }
 document.addEventListener("input",surSaisie);
@@ -982,14 +999,25 @@ function rendrePhotos(k){
 }
 
 /* ================= Exercices ================= */
+function qcmJuste(c){
+  var bon=c.dataset.correct.split(",").map(Number);
+  return $$(".opt input",c).every(function(i){return i.checked===(bon.indexOf(+i.dataset.i)>-1);});
+}
 function majCas(c){
   var k=c.dataset.case,v=!!etat.valide[k],a=etat.auto[k];
+  if(c.classList.contains("qcm")){
+    var bon=c.dataset.correct.split(",").map(Number);
+    $$(".opt",c).forEach(function(l){var i=l.querySelector("input"),ok=bon.indexOf(+i.dataset.i)>-1,m=l.querySelector(".marque");
+      l.classList.toggle("bonne",v&&ok);l.classList.toggle("faux",v&&i.checked&&!ok);
+      m.textContent=!v?"":ok?(i.checked?"✓ bonne réponse":"✓ bonne réponse, non cochée"):(i.checked?"✗ ne fallait pas cocher":"");});
+  }
   c.classList.toggle("valide",v);
   $$(".rep",c).forEach(function(f){f.disabled=v;});
   $$(".auto button",c).forEach(function(b){b.classList.toggle("on",b.dataset.v===a);});
   var bd=c.querySelector(".badge");
   bd.className="badge"+(a?" "+a:(v?" val":""));
-  bd.textContent=a==="ok"?"✓ J'avais trouvé":a==="partiel"?"◐ En partie":a==="ko"?"✗ À retravailler":v?"Corrigé affiché":"";
+  var q=c.classList.contains("qcm");
+  bd.textContent=q?(a==="ok"?"✓ Juste":a==="ko"?"✗ À retravailler":""):(a==="ok"?"✓ J'avais trouvé":a==="partiel"?"◐ En partie":a==="ko"?"✗ À retravailler":v?"Corrigé affiché":"");
   $$("tr[data-attendu]",c).forEach(function(tr){
     var att=tr.dataset.attendu,sel=etat.champs[tr.dataset.sel]||"",vd=tr.querySelector(".verdict");
     if(!v){vd.textContent="";return;}
@@ -1008,6 +1036,10 @@ function majExoBarre(seq){
 }
 $$(".cas").forEach(function(c){
   c.querySelector(".valider").addEventListener("click",function(){
+    if(c.classList.contains("qcm")){
+      if(!$$(".rep",c).some(rempli)){toast("Cochez d'abord votre réponse.");return;}
+      etat.valide[c.dataset.case]=true;etat.auto[c.dataset.case]=qcmJuste(c)?"ok":"ko";majCas(c);majTout();sauver();return;
+    }
     var vides=$$(".rep",c).filter(function(f){return !String(f.value||"").trim();});
     if(vides.length===$$(".rep",c).length){toast("Rédigez d'abord votre réponse.");return;}
     if(vides.length&&!confirm("Une partie de votre réponse est vide. Valider quand même ? Vos réponses seront figées."))return;
@@ -1023,7 +1055,7 @@ $$(".refaire").forEach(function(b){b.addEventListener("click",function(){
   if(!confirm("Refaire l'exercice ? Vos réponses et vos auto-évaluations de cette mise en situation seront effacées. Vos surlignages dans les corrigés sont conservés."))return;
   $$("#p-"+seq+" .cas").forEach(function(c){
     var k=c.dataset.case;delete etat.valide[k];delete etat.auto[k];
-    $$(".rep",c).forEach(function(f){delete etat.champs[f.dataset.k];f.value="";});
+    $$(".rep",c).forEach(function(f){delete etat.champs[f.dataset.k];if(f.type==="checkbox"||f.type==="radio")f.checked=false;else f.value="";});
     majCas(c);
   });
   etat.essais[seq]=(etat.essais[seq]||0)+1;majTout();sauver();window.scrollTo(0,0);toast("Exercice remis à zéro.");
@@ -1171,7 +1203,7 @@ function allerVers(id){
 }
 
 /* ================= Progression et bilan ================= */
-function rempli(el){return el.type==="checkbox"?el.checked:String(el.value||"").trim().length>0;}
+function rempli(el){return (el.type==="checkbox"||el.type==="radio")?el.checked:String(el.value||"").trim().length>0;}
 function compte(seq){
   var page=$("#p-"+seq),cas=$$(".cas",page),exs=$$(".exam input",page);
   var v=cas.filter(function(c){return etat.valide[c.dataset.case];}).length;
@@ -1210,8 +1242,8 @@ function majBilan(){
     var page=$("#p-"+s),items=[];
     $$(".cas",page).forEach(function(c){
       var a=etat.auto[c.dataset.case],t=c.querySelector(".ct .tx").textContent;
-      if(a==="ko"||a==="partiel")items.push('<li><b>'+(a==="ko"?"À retravailler":"En partie")+'</b> — mise en situation : '+esc(t)+'</li>');
-      else if(!etat.valide[c.dataset.case])items.push('<li>Pas encore fait — mise en situation : '+esc(t)+'</li>');
+      if(a==="ko"||a==="partiel")items.push('<li><b>'+(a==="ko"?"À retravailler":"En partie")+'</b> — '+ONGLETS.exo.toLowerCase()+' : '+esc(t)+'</li>');
+      else if(!etat.valide[c.dataset.case])items.push('<li>Pas encore fait — '+ONGLETS.exo.toLowerCase()+' : '+esc(t)+'</li>');
     });
     $$(".exam label",page).forEach(function(l){if(!l.querySelector("input").checked)items.push("<li>Point d'examen : "+l.querySelector(".q").innerHTML+"</li>");});
     if(items.length){n+=items.length;html+='<p style="margin:10px 0 4px"><a href="#'+s+'" style="color:#5E1349;font-weight:700">Séquence '+(i+1)+' — '+TITRES[s]+'</a></p><ul>'+items.join("")+'</ul>';}
