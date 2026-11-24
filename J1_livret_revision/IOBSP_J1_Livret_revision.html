@@ -335,6 +335,14 @@ mark.hl.flash{outline:3px solid var(--prune);outline-offset:2px}
 .encadre.verif .tt{color:#7A5600}
 .memo-img img{width:100%;height:auto;border:1px solid var(--trame);border-radius:6px;display:block}
 @media print{.memo-img img{max-height:228mm;width:auto;max-width:100%;margin:0 auto;object-fit:contain}}
+
+a.retour{text-decoration:none;display:inline-flex;align-items:center}
+#side .retour-side{display:block;padding:10px 22px;color:#F1DDE9;text-decoration:none;font-size:14px;border-bottom:1px solid rgba(255,255,255,.15)}
+#side .retour-side:hover{background:rgba(255,255,255,.08);color:#fff}
+.alerte{background:#FFF6DF;border:1px solid #E6C770;border-left:6px solid #C9A13B;border-radius:10px;padding:14px 18px;margin:16px 0}
+.alerte .tt{font-weight:700;color:#7A5600;margin-bottom:6px;font-size:15px}
+.alerte p{margin:6px 0}.alerte ul{margin:6px 0 6px 18px;padding:0}
+@media print{a.retour,#side .retour-side{display:none!important}.alerte{break-inside:avoid}}
 </style>
 </head>
 <body>
@@ -345,6 +353,7 @@ mark.hl.flash{outline:3px solid var(--prune);outline-offset:2px}
     <div class="t">IOBSP · Niveau 2 · Bloc 2</div>
     <div class="h">Journée 1 — Les savoirs généraux</div>
   </div>
+  <a class="retour-side" href="../index.html">← Menu principal</a>
   <nav id="nav">
     <a href="#accueil" data-p="accueil"><span class="n">★</span><span class="l">Accueil</span></a>
 <a href="#s1" data-p="s1"><span class="n">1</span><span class="l">Le contexte de l'activité</span><span class="p"></span></a>
@@ -365,6 +374,7 @@ mark.hl.flash{outline:3px solid var(--prune);outline-offset:2px}
 
 <div id="top">
   <button class="btn discret" id="menuBtn" type="button">☰ Menu</button>
+  <a class="btn retour" href="../index.html" title="Revenir à la liste des livrets">⌂ Menu principal</a>
   <div class="status" id="status">Votre travail s'enregistre automatiquement dans ce navigateur.</div>
   <button class="btn" type="button" id="btnExport" title="Télécharge un fichier de sauvegarde à conserver">⬇ Télécharger ma sauvegarde</button>
   <button class="btn" type="button" id="btnImport" title="Recharge un fichier de sauvegarde">⬆ Reprendre une sauvegarde</button>
@@ -383,6 +393,7 @@ mark.hl.flash{outline:3px solid var(--prune);outline-offset:2px}
     <h1>Votre livret de révision — Les savoirs généraux</h1>
     <div class="s">Programme conforme à l'arrêté du 18 juillet 2022, annexe A, point 1</div>
   </div>
+
   <div class="carte">
     <p>Ce livret reprend la journée 1 pour que vous puissiez la retravailler à votre rythme : <b>relire le cours, l'annoter, refaire les mises en situation et garder une trace de votre travail</b>.</p>
     <p>Le menu de gauche vous mène directement à la séquence que vous voulez reprendre. Chaque séquence comporte quatre onglets : le cours, la mise en situation, la fiche mémo et vos notes.</p>
